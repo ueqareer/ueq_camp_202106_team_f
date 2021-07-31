@@ -1,0 +1,150 @@
+/* .heading2Xl {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.05rem;
+  margin: 1rem 0;
+}
+
+.headingXl {
+  font-size: 2rem;
+  line-height: 1.3;
+  font-weight: 800;
+  letter-spacing: -0.05rem;
+  margin: 1rem 0;
+}
+
+.headingLg {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  margin: 1rem 0;
+}
+
+.headingMd {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.borderCircle {
+  border-radius: 9999px;
+}
+
+.colorInherit {
+  color: inherit;
+}
+
+.padding1px {
+  padding-top: 1px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+  margin: 0 0 1.25rem;
+}
+
+.lightText {
+  color: #999;
+} */
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
+
+.body {
+  margin: 0;
+  padding: 20px;
+}
+
+.header{
+  background-color:#26d0c9;
+  color:#fff;
+  height:90px;
+}
+
+.headerLogo{
+  float:left;
+  font-size:30px;
+  padding:20px 40px;
+}
+
+.headerList{
+  float:left;
+}
+
+.headerList li{
+  float:left;
+  padding:33px 20px;
+}
+
+.placeForm{
+  padding-top:100px;
+}
+
+.input{
+  
+}
+
+.main{
+
+}
+
+.weather {
+  font-family: 'Open Sans Condensed', sans-serif;
+  background: linear-gradient(to bottom right, #04BACC, #68d5e0);
+  width: 480px;
+  font-size: 21px;
+  line-height: 1.5;
+  color: #fff;
+}
+
+.today {
+  padding: 40px 60px;
+  display: flex;
+  border-bottom: 1px solid #68d5e0;
+}
+
+.today .weatherIcon {
+  font-size: 162px;
+}
+
+.today .weatherDetail .currentTemperature {
+  font-size: 92px;  
+}
+
+.today .weatherDetail {
+  padding-left: 75px;
+}
+
+.week {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.day {
+  flex-grow: 1;
+  padding: 21px 9px;
+  text-align: center;
+  border-right: 1px solid #68d5e0;
+}
+
+.day:last-child {
+  border-right: 0;
+}
+
+.day .weatherIcon {
+  margin: 5px 0;
+  color: #01373d;
+}
+
+.day .temperature {
+  font-size: 16px;
+}
