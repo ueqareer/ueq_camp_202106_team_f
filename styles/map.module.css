@@ -1,0 +1,128 @@
+/* 日本地図DOM */
+.japan_map{
+    position: relative;
+    box-sizing: content-box;
+    /*max-width: 50%;*/
+    margin: 15px;
+    padding:20px;
+    display: inline-block;
+    /*background-color: #adf6ff;*/
+}
+
+/* 日本地図画像（スマホ対応用） */
+.japan_map img{
+    width: 480px;
+    height: 480px;
+    border: 0;
+    /*
+    -webkit-backface-visibility: hidden;
+    */
+}
+/* 日本地図ボタン */
+.japan_map .area_btn{
+    position: absolute;
+    z-index: 1;
+    box-sizing: border-box;
+    cursor: pointer;
+    border: 3px solid #333333;
+    border-radius: 5px;
+    background-color: #FFF;
+    padding: 0.2em auto;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* ボタン配置（使用する日本地図画像により微調整） */
+/*北海道東北*/
+.japan_map .area_btn.area1{
+    top: 12%;
+    left: 35%;
+    width: 15%;
+}
+/*関東*/
+.japan_map .area_btn.area2{
+    top: 25%;
+    left: 38%;
+    width: 8%;
+}
+/*中部*/
+.japan_map .area_btn.area3{
+    top: 22%;
+    left: 28%;
+    width: 8%;
+}
+/*近畿*/
+.japan_map .area_btn.area4{
+    top: 30%;
+    left: 23%;
+    width: 8%;
+}
+/*中国・四国*/
+.japan_map .area_btn.area5{
+    top: 25%;
+    left: 12%;
+    width: 12%;
+}
+/*九州*/
+.japan_map .area_btn.area6{
+    top: 30%;
+    left: 0;
+    width: 12%;
+}
+/* オーバーレイ */
+.japan_map .area_overlay{
+    display: none;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    min-width: 50%;
+    min-height: 50%;
+    width: auto;
+    height: auto;
+    background-color: #111;
+    opacity: 0.5;
+    cursor: pointer;
+    float: left;
+}
+
+
+/* 選択前は表示を隠す */
+.japan_map .pref_area{
+    display: none;
+}
+
+/* 地域毎の都道府県リスト */
+.japan_map .pref_list{
+    position: absolute;
+    top: 25%;
+    left: 12.5%;
+    transform: translateY(-25%) translateX(-25%);
+    -webkit-transform: translateY(-25%) translateX(-25%);
+    z-index: 3;
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    width: 50%;
+    background-color: #FFF;
+    float: left;
+}
+.japan_map .pref_list > div{
+    box-sizing: border-box;
+    width: 25%;
+    border: 1px solid #CCC;
+    font-weight: bold;
+    text-align: center;
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 480px){
+    /* スマホユーザー向けにボタン文字サイズを調整 */
+    .japan_map .area_btn{
+        font-size: 4vw;
+    }
+}
