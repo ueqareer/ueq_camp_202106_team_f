@@ -2,24 +2,24 @@
 	max-width: 36rem;
 	padding: 0 1rem;
 	margin: 3rem auto 6rem;
-      }
-      
-      .header {
+}
+
+.header {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-      }
-      
-      .headerImage {
+}
+
+.headerImage {
 	width: 6rem;
 	height: 6rem;
-      }
-      
-      .headerHomeImage {
+}
+
+.headerHomeImage {
 	width: 8rem;
 	height: 8rem;
-      }
-      
-      .backToHome {
+}
+
+.backToHome {
 	margin: 3rem 0 0;
-      }
+}
