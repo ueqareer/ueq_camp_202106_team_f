@@ -1,25 +1,17 @@
 import React from 'react';
-import Head from 'next/head';
 import styles from './layout.module.css';
 import utilStyles from '@/styles/utils.module.css';
 import Link from 'next/link';
 
 const name = 'WEATHERP';
-export const siteTitle = 'お天気パネル';
 
-export default function Layout({ children, home }) {
+type Props = {
+  home?: boolean;
+};
+
+const Layout: React.FC<Props> = ({ children, home }) => {
   return (
     <div className={styles.container}>
-      <Head>
-        <meta charSet="utf-8" />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css"
-        />
-        <meta name="description" content="weekly weather forecast" />
-        <meta name="og:title" content={siteTitle} />
-        <meta name="twitter:card" content="summary_large_image" />
-      </Head>
       <header className={styles.header}>
         {home ? (
           <>
@@ -35,7 +27,7 @@ export default function Layout({ children, home }) {
             <Link href="/">
               <a>
                 <img
-                src="#"
+                  src="#"
                   className={`${styles.headerImage} ${utilStyles.borderCircle}`}
                   alt={name}
                 />
@@ -61,3 +53,4 @@ export default function Layout({ children, home }) {
   );
 };
 
+export default Layout;
