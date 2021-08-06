@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { format, fromUnixTime } from 'date-fns';
 import ja from 'date-fns/locale/ja';
+import Data from '@/public/data/japan.json'
 
 import Layout from '@/components/Layout';
 import utilStyles from '@/styles/utils.module.css';
@@ -115,8 +116,15 @@ interface WeatherData {
   daily: Daily[];
 }
 
-const lat = 35.6518205;
-const lon = 139.5446124;
+interface Data{ 
+  id: string, 
+  pref: string, 
+  lat: number, 
+  lng:number
+}
+
+//const lat = 35.6518205;
+//const lon = 139.5446124;
 
 const today = new Date();
 
@@ -136,6 +144,19 @@ const getWeatherInfo = (weather: Weather) => {
 };
 
 export default function Index() {
+
+  const [lat, setLat] = useState(35.6518205);
+  const [lon, setLon] = useState(139.5446124);
+
+  const getPlace = useCallback((id:string) =>{
+    console.log(Data)
+    for(var i=0; i<Data.length; i++){
+      if(id===Data[i].id)
+      setLat(Data[i].lat)
+      setLon(Data[i].lng)
+    }
+  },[setLat, setLon]);
+
   const getData = async () => {
     const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=f9794935a670f65e810fe0253ce78aa8`;
     const response = await fetch(url);
@@ -147,9 +168,11 @@ export default function Index() {
   const [currentWeather, setCurrentWeather] = useState<Current>();
   const [dailyWeather, setDailyWeather] = useState<Daily[]>([]);
 
+
   useEffect(() => {
+    getPlace
     getData();
-  }, []);
+  }, [lat, lon]);
 
   if (!currentWeather) return null;
 
@@ -175,7 +198,7 @@ export default function Index() {
         </div>
       </div>
 
-      <JapanMap />
+      <JapanMap getPlace={getPlace}/>
 
       <div className={utilStyles.weather}>
         <div className={utilStyles.today}>
