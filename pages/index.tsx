@@ -161,7 +161,7 @@ export default function Index() {
   */
 
   const getData = async () => {
-    const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=f9794935a670f65e810fe0253ce78aa8`;
+    const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=40ce155d4d54e1376534f0dee7ea34f7`;
     const response = await fetch(url);
     const data: WeatherData = await response.json();
     setCurrentWeather(data.current);
