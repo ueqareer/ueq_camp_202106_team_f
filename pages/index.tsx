@@ -1,4 +1,4 @@
-import React, { useState, useEffect, /*useCallback*/ } from 'react';
+import React, { useState, useEffect /*useCallback*/ } from 'react';
 import { format, fromUnixTime } from 'date-fns';
 import ja from 'date-fns/locale/ja';
 //import Data from '@/public/data/japan.json'
@@ -171,11 +171,13 @@ export default function Index() {
   const [currentWeather, setCurrentWeather] = useState<Current>();
   const [dailyWeather, setDailyWeather] = useState<Daily[]>([]);
 
-
-  useEffect(() => {
-    //getPlace(id:string);
-    getData();
-  }, []/*[lat, lon]*/);
+  useEffect(
+    () => {
+      //getPlace(id:string);
+      getData();
+    },
+    [] /*[lat, lon]*/
+  );
 
   if (!currentWeather) return null;
 
@@ -201,7 +203,7 @@ export default function Index() {
         </div>
       </div>
 
-      <JapanMap /*getPlace={getPlace}*//>
+      <JapanMap /*getPlace={getPlace}*/ />
 
       <div className={utilStyles.weather}>
         <div className={utilStyles.today}>
