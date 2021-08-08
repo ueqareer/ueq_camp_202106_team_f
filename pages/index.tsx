@@ -143,6 +143,32 @@ const getWeatherInfo = (weather: Weather) => {
       weatherIcon: 'wi wi-day-sunny',
     };
   }
+  if (weather.main === 'Snow') {
+    return {
+      label: '雪',
+      weatherIcon: 'wi wi-snow',
+    };
+  }if (weather.main === 'Rain') {
+    return {
+      label: '雨',
+      weatherIcon: 'wi wi-rain',
+    };
+  }if (weather.main === 'Drizzle') {
+    return {
+      label: '霧雨',
+      weatherIcon: 'wwi wi-sleet',
+    };
+  }if (weather.main === 'Thunderstorm') {
+    return {
+      label: '雷雨',
+      weatherIcon: 'wi wi-thunderstorm',
+    };
+  }else{
+    return {
+      label: '',
+      weatherIcon: 'wi wi-dust',
+    };
+  }
 };
 
 export default function Index() {
@@ -166,16 +192,20 @@ export default function Index() {
     const data: WeatherData = await response.json();
     setCurrentWeather(data.current);
     setDailyWeather(data.daily);
+    setHourlyWeather(data.hourly);
+    console.log(currentWeather)
+    console.log(dailyWeather)
   };
 
   const [currentWeather, setCurrentWeather] = useState<Current>();
   const [dailyWeather, setDailyWeather] = useState<Daily[]>([]);
-
+  const [hourlyWeather, setHourlyWeather] = useState<Hourly[]>([]);
 
   useEffect(() => {
     //getPlace(id:string);
     getData();
   }, []/*[lat, lon]*/);
+
 
   if (!currentWeather) return null;
 
@@ -215,19 +245,19 @@ export default function Index() {
           </div>
           <div className={utilStyles.weatherDetail}>
             <div id="ctempid" className={utilStyles.currenTemperature}>
-              {currentWeather.temp}°
+              {Math.round(currentWeather.temp)}°
             </div>
-            {/* <div id="cweather">{this.state.weather0}</div> */}
+            <div id="cweather">{getWeatherInfo(currentWeather?.weather[0])?.label}</div>
             <div className={utilStyles.temperature}>
-              {/* <span id="cmaxtem">{this.state.cmaxtem0}°</span>/
-              <span id="cminem">{this.state.cmintem0}°</span> */}
+              <span id="cmaxtem">{Math.round(dailyWeather[0]?.temp.max)}°</span>/
+              <span id="cminem">{Math.round(dailyWeather[0]?.temp.min)}°</span>
             </div>
-            {/* <div className={utilStyles.rainyPercent}>{this.state.rain0}</div> */}
+            <div className={utilStyles.rainyPercent}>降水 {hourlyWeather[0]?.pop*100}%</div>
           </div>
         </div>
 
         <ul className={utilStyles.week}>
-          {dailyWeather.slice(1).map((x) => (
+          {dailyWeather.slice(1,7).map((x) => (
             <li key={x.dt} className={utilStyles.day}>
               <div id="week1" className={utilStyles.dayofTheweek}>
                 {format(fromUnixTime(x.dt), 'yyyy/MM/dd (eee)', { locale: ja })}
@@ -236,7 +266,7 @@ export default function Index() {
                 <i className={getWeatherInfo(x.weather[0])?.weatherIcon} />
               </div>
               <div className={utilStyles.temperature}>
-                <span>{x.temp.max}°</span>/<span>{x.temp.min}°</span>
+                <span>{Math.round(x.temp.max)}°</span>/<span>{Math.round(x.temp.min)}°</span>
               </div>
             </li>
           ))}

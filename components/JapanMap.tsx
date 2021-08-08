@@ -47,7 +47,7 @@ const JapanMap = (/*props*/) => {
         <span className="area_btn area2" data-area="2">
           関東
         </span>
-        <span className="area_btn area2" data-area="3">
+        <span className="area_btn area3" data-area="3">
           中部
         </span>
         <span className="area_btn area4" data-area="4">
