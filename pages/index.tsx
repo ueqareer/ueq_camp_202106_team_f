@@ -1,4 +1,4 @@
-import React, { useState, useEffect, /*useCallback*/ } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { format, fromUnixTime } from 'date-fns';
 import ja from 'date-fns/locale/ja';
 //import Data from '@/public/data/japan.json'
@@ -61,7 +61,7 @@ interface Hourly {
   pop: number;
 }
 
-export interface Temp {
+interface Temp {
   day: number;
   min: number;
   max: number;
@@ -84,7 +84,7 @@ interface Weather3 {
   icon: string;
 }
 
-export interface Daily {
+interface Daily {
   dt: number;
   sunrise: number;
   sunset: number;
@@ -118,16 +118,15 @@ export interface WeatherData {
 }
 
 /*
-export Data{ 
-  id: string, 
-  pref: string, 
-  lat: number, 
+export interface Data{ 
+  id: string,
+  pref: string,
+  lat: number,
   lng:number
-}
-*/
+}*/
 
-const lat = 35.6518205;
-const lon = 139.5446124;
+//const lat = 35.6518205;
+//const lon = 139.5446124;
 
 const today = new Date();
 
@@ -201,12 +200,19 @@ const getWeatherInfo = (weather: Weather) => {
 };
 
 export default function Index() {
-  /*
+  
   const [lat, setLat] = useState(35.6518205);
   const [lon, setLon] = useState(139.5446124);
+  const [id, setId] = useState('13');
 
-  const getPlace  = useCallback((id:string) =>{
+  type Props ={
+    handleSomething: VoidFunction, 
+  }
+
+  /*
+  const getPlace:React.FC<Props> = { handleSomething }  =>{
     console.log(Data)
+    setId(id)
     for(var i=0; i<Data.length; i++){
       if(id===Data[i].id)
       setLat(Data[i].lat)
@@ -231,7 +237,7 @@ export default function Index() {
   const [hourlyWeather, setHourlyWeather] = useState<Hourly[]>([]);
 
   useEffect(() => {
-    //getPlace(id:string);
+    //getPlace(id);
     getData();
   }, []/*[lat, lon]*/);
 
@@ -260,7 +266,7 @@ export default function Index() {
         </div>
       </div>
 
-      <JapanMap /*getPlace={getPlace}*//>
+      <JapanMap /*Place={getPlace}*//>
 
       <>
       {/*<Checkbox />*/}

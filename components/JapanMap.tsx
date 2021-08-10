@@ -21,7 +21,7 @@ const JapanMap = (/*props*/) => {
   $('.pref_list [data-id]').click(function () {
     if ($(this).data('id')) {
       const id = $(this).data('id');
-      //props.getPlace(id)
+      //props.Place(id)
 
       //このidを使用して行いたい操作をしてください      
       //都道府県IDに応じて別ページに飛ばしたい場合はこんな風に書く↓
