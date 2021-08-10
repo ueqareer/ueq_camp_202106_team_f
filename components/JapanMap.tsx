@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import utilStyles from '@/styles/utils.module.css';
 
 const JapanMap = (/*props*/) => {
   //地域を選択
@@ -38,7 +39,7 @@ const JapanMap = (/*props*/) => {
   };
 
   return (
-    <>
+    <div className={utilStyles.inline}>
       <div className="japan_map">
         <img src="/japan.png" height={546} width={506} />
         <span className="area_btn area1" data-area="1">
@@ -133,7 +134,7 @@ const JapanMap = (/*props*/) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

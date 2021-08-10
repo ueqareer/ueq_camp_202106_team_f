@@ -2,6 +2,7 @@ import React, { useState, useEffect, /*useCallback*/ } from 'react';
 import { format, fromUnixTime } from 'date-fns';
 import ja from 'date-fns/locale/ja';
 //import Data from '@/public/data/japan.json'
+//import Checkbox from '@/components/checkbox';
 
 import Layout from '@/components/Layout';
 import utilStyles from '@/styles/utils.module.css';
@@ -60,7 +61,7 @@ interface Hourly {
   pop: number;
 }
 
-interface Temp {
+export interface Temp {
   day: number;
   min: number;
   max: number;
@@ -83,7 +84,7 @@ interface Weather3 {
   icon: string;
 }
 
-interface Daily {
+export interface Daily {
   dt: number;
   sunrise: number;
   sunset: number;
@@ -105,7 +106,7 @@ interface Daily {
   uvi: number;
 }
 
-interface WeatherData {
+export interface WeatherData {
   lat: number;
   lon: number;
   timezone: string;
@@ -129,6 +130,34 @@ const lat = 35.6518205;
 const lon = 139.5446124;
 
 const today = new Date();
+
+const displayWearIcon = (weartemp:Daily)=>{
+  if(weartemp.temp.min>=30){
+    return{
+      iconlabel:'wear5.png'
+    }
+  }
+  if(22.5<=weartemp.temp.min && weartemp.temp.min<30){
+    return{
+      iconlabel:'wear4.png'
+    }
+  }
+  if(15<=weartemp.temp.min && weartemp.temp.min<22.5){
+    return{
+      iconlabel:'wear3.png'
+    }
+  }
+  if(10<=weartemp.temp.min && weartemp.temp.min<15){
+    return{
+      iconlabel:'wear2.png'
+    }
+  }
+  if(weartemp.temp.min<10){
+    return{
+      iconlabel:'outor.png'
+    }
+  }
+}
 
 const getWeatherInfo = (weather: Weather) => {
   if (weather.main === 'Clouds') {
@@ -193,8 +222,8 @@ export default function Index() {
     setCurrentWeather(data.current);
     setDailyWeather(data.daily);
     setHourlyWeather(data.hourly);
-    console.log(currentWeather)
-    console.log(dailyWeather)
+    //console.log(currentWeather);
+    //console.log(dailyWeather);
   };
 
   const [currentWeather, setCurrentWeather] = useState<Current>();
@@ -232,6 +261,10 @@ export default function Index() {
       </div>
 
       <JapanMap /*getPlace={getPlace}*//>
+
+      <>
+      {/*<Checkbox />*/}
+       </>
 
       <div className={utilStyles.weather}>
         <div className={utilStyles.today}>
@@ -271,6 +304,11 @@ export default function Index() {
             </li>
           ))}
         </ul>
+      </div>
+
+      <button>服装指数</button>
+      <div className="j">
+        <img src={displayWearIcon(dailyWeather[0])?.iconlabel} height={50} width={50} />
       </div>
 
       <div className={utilStyles.footer}>
