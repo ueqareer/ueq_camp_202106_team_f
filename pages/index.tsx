@@ -1,7 +1,7 @@
-import React, { useState, useEffect, /*useCallback*/ } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { format, fromUnixTime } from 'date-fns';
 import ja from 'date-fns/locale/ja';
-//import Data from '@/public/data/japan.json'
+import Data from '@/public/data/japan.json'
 
 import Layout from '@/components/Layout';
 import utilStyles from '@/styles/utils.module.css';
@@ -116,17 +116,17 @@ interface WeatherData {
   daily: Daily[];
 }
 
-/*
-export Data{ 
-  id: string, 
-  pref: string, 
-  lat: number, 
-  lng:number
-}
-*/
 
-const lat = 35.6518205;
-const lon = 139.5446124;
+// export interface Data{ 
+//   id: string;
+//   pref: string; 
+//   lat: number;
+//   lon: number;
+// }
+
+
+// const lat = 35.6518205;
+// const lng = 139.5446124;
 
 const today = new Date();
 
@@ -146,36 +146,42 @@ const getWeatherInfo = (weather: Weather) => {
 };
 
 export default function Index() {
-  /*
+  
   const [lat, setLat] = useState(35.6518205);
   const [lon, setLon] = useState(139.5446124);
+  const [id, setId] = useState("13");
 
   const getPlace  = useCallback((id:string) =>{
-    console.log(Data)
-    for(var i=0; i<Data.length; i++){
-      if(id===Data[i].id)
-      setLat(Data[i].lat)
-      setLon(Data[i].lng)
+     console.log(Data)
+     setId(id)
+     for(var i=0; i<Data.length; i++){
+       if(id===Data[i].id){
+       setLat(Data[i].lat)
+       setLon(Data[i].lng)
+     }
     }
-  },[setLat, setLon]);
-  */
+   },[setLat, setLon]);
+  //idから緯度経度をとってきてuseeffectを動かす
+  ///服装指数とかもチェックボックス押したら表示させるとかで考えてみる。
+  
 
-  const getData = async () => {
-    const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=40ce155d4d54e1376534f0dee7ea34f7`;
-    const response = await fetch(url);
-    const data: WeatherData = await response.json();
-    setCurrentWeather(data.current);
-    setDailyWeather(data.daily);
-  };
+   const getData = async () => {
+     const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=40ce155d4d54e1376534f0dee7ea34f7`;
+     const response = await fetch(url);
+     const data: WeatherData = await response.json();
+     setCurrentWeather(data.current);
+     setDailyWeather(data.daily);
+   };
 
   const [currentWeather, setCurrentWeather] = useState<Current>();
   const [dailyWeather, setDailyWeather] = useState<Daily[]>([]);
 
 
   useEffect(() => {
-    //getPlace(id:string);
+    getPlace(id);
     getData();
-  }, []/*[lat, lon]*/);
+    console.log(getPlace);
+  }, [lat, lon]);
 
   if (!currentWeather) return null;
 
@@ -201,7 +207,7 @@ export default function Index() {
         </div>
       </div>
 
-      <JapanMap /*getPlace={getPlace}*//>
+      <JapanMap getPlace={getPlace}/>
 
       <div className={utilStyles.weather}>
         <div className={utilStyles.today}>
