@@ -2,7 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import utilStyles from '@/styles/utils.module.css';
 
-const JapanMap = (/*props*/) => {
+const JapanMap = (props: { getPlace: (arg0: any) => void; }) => {
   //地域を選択
   $('.area_btn').click(function () {
     $('.area_overlay').show();
@@ -21,7 +21,7 @@ const JapanMap = (/*props*/) => {
   $('.pref_list [data-id]').click(function () {
     if ($(this).data('id')) {
       const id = $(this).data('id');
-      //props.Place(id)
+      props.getPlace(id)
 
       //このidを使用して行いたい操作をしてください      
       //都道府県IDに応じて別ページに飛ばしたい場合はこんな風に書く↓
