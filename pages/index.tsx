@@ -130,28 +130,28 @@ export interface Data{
 
 const today = new Date();
 
-const displayWearIcon = (weartemp:Daily)=>{
-  if(weartemp.temp.min>=30){
+const displayWearIcon = (weartemp:Temp)=>{
+  if(weartemp.min>=30){
     return{
       iconlabel:'wear5.png'
     }
   }
-  if(22.5<=weartemp.temp.min && weartemp.temp.min<30){
+  if(22.5<=weartemp.min && weartemp.min<30){
     return{
       iconlabel:'wear4.png'
     }
   }
-  if(15<=weartemp.temp.min && weartemp.temp.min<22.5){
+  if(15<=weartemp.min && weartemp.min<22.5){
     return{
       iconlabel:'wear3.png'
     }
   }
-  if(10<=weartemp.temp.min && weartemp.temp.min<15){
+  if(10<=weartemp.min && weartemp.min<15){
     return{
       iconlabel:'wear2.png'
     }
   }
-  if(weartemp.temp.min<10){
+  if(weartemp.min<10){
     return{
       iconlabel:'outor.png'
     }
@@ -312,18 +312,22 @@ export default function Index() {
         </ul>
       </div>
 
-      <button>服装指数</button>
-      <div className="j">
-        <img src={displayWearIcon(dailyWeather[0])?.iconlabel} height={50} width={50} />
+      <div className={utilStyles.wear}>
+      <button /*onClick={}*/>服装指数</button>
+      </div>
+      <div className={utilStyles.wearicon}>
+      {dailyWeather.slice(0,1).map((x) => (
+        <li key={x.dt}>
+        <img src={displayWearIcon(x.temp)?.iconlabel} height={50} width={50} />
+        </li>
+      ))}
       </div>
 
       <div className={utilStyles.footer}>
         <div className={utilStyles.footerLogo}>WeatherAPI</div>
         <div className={utilStyles.footerList}>
           <ul>
-            <li>適当</li>
             <li>お問い合わせ</li>
-            <li>わああああ</li>
           </ul>
         </div>
       </div>
