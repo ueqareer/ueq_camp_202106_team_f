@@ -15,15 +15,18 @@ const Layout: React.FC<Props> = ({ children, home }) => {
       <header className={styles.header}>
         {home ? (
           <>
-            {/* <img
-              src="#" put image of page header
+            {/*
+            <img
+              src="#"
               className={`${styles.headerHomeImage} ${utilStyles.borderCircle}`}
               alt={name}
-            /> */}
+            />
             <h1 className={utilStyles.heading2Xl}>{name}</h1>
+          */}
           </>
         ) : (
           <>
+            {/*
             <Link href="/">
               <a>
                 <img
@@ -33,6 +36,7 @@ const Layout: React.FC<Props> = ({ children, home }) => {
                 />
               </a>
             </Link>
+          */}
             <h2 className={utilStyles.headingLg}>
               <Link href="/">
                 <a className={utilStyles.colorInherit}>{name}</a>

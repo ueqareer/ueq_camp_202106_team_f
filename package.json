@@ -11,6 +11,7 @@
     "lint:fix": "eslint --fix --ext .ts,.tsx --ignore-path .gitignore ."
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
     "date-fns": "^2.23.0",
     "firebase": "^8.9.1",
     "jquery": "^3.6.0",
