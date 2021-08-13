@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { format, fromUnixTime } from 'date-fns';
 import ja from 'date-fns/locale/ja';
 //import Data from '@/public/data/japan.json'
-//import Checkbox from '@/components/checkbox';
+import FormDialog from '@/components/Forms/FormDialog'
 
 import Layout from '@/components/Layout';
 import utilStyles from '@/styles/utils.module.css';
@@ -203,18 +203,24 @@ export default function Index() {
   
   const [lat, setLat] = useState(35.6518205);
   const [lon, setLon] = useState(139.5446124);
-  const [id, setId] = useState('13');
+  const [indent, setIndent] = useState('13');
+  const [open, setOpen] = useState(false);
 
-  type Props ={
-    handleSomething: VoidFunction, 
-  }
+  const handleClickOpen = () => {
+    setOpen(true)
+  };
+  
+  const handleClose = () => {
+    setOpen(false)
+  };
 
   /*
-  const getPlace:React.FC<Props> = { handleSomething }  =>{
+  //const getPlace:React.FC<Props> = { handleSomething }  =>{
+  const getPlace  = useCallback((id:string) =>{
     console.log(Data)
-    setId(id)
+    setIndent(id)
     for(var i=0; i<Data.length; i++){
-      if(id===Data[i].id)
+      if(indent===Data[i].id)
       setLat(Data[i].lat)
       setLon(Data[i].lng)
     }
@@ -237,9 +243,9 @@ export default function Index() {
   const [hourlyWeather, setHourlyWeather] = useState<Hourly[]>([]);
 
   useEffect(() => {
-    //getPlace(id);
+    //getPlace(id:string);
     getData();
-  }, []/*[lat, lon]*/);
+  }, [lat, lon]);
 
 
   if (!currentWeather) return null;
@@ -266,11 +272,7 @@ export default function Index() {
         </div>
       </div>
 
-      <JapanMap /*Place={getPlace}*//>
-
-      <>
-      {/*<Checkbox />*/}
-       </>
+      <JapanMap /*getPlace={getPlace}*//>
 
       <div className={utilStyles.weather}>
         <div className={utilStyles.today}>
@@ -312,8 +314,10 @@ export default function Index() {
         </ul>
       </div>
 
+      <FormDialog open={open} handleClose={handleClose}/>
       <div className={utilStyles.wear}>
-      <button /*onClick={}*/>服装指数</button>
+      <button onClick={handleClickOpen}>指数追加</button>
+
       </div>
       <div className={utilStyles.wearicon}>
       {dailyWeather.slice(0,1).map((x) => (
@@ -327,7 +331,9 @@ export default function Index() {
         <div className={utilStyles.footerLogo}>WeatherAPI</div>
         <div className={utilStyles.footerList}>
           <ul>
+            <li>適当</li>
             <li>お問い合わせ</li>
+            <li>わああああ</li>
           </ul>
         </div>
       </div>
