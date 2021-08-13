@@ -22,7 +22,7 @@ const JapanMap = (/*props*/) => {
       const id = $(this).data('id');
       //props.getPlace(id)
 
-      //このidを使用して行いたい操作をしてください      
+      //このidを使用して行いたい操作をしてください
       //都道府県IDに応じて別ページに飛ばしたい場合はこんな風に書く↓
       //window.location.href = 'https://kinocolog.com/pref/' + id;
       console.log(id);

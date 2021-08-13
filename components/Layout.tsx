@@ -15,11 +15,11 @@ const Layout: React.FC<Props> = ({ children, home }) => {
       <header className={styles.header}>
         {home ? (
           <>
-            <img
-              src="#"
+            {/* <img
+              src="#" put image of page header
               className={`${styles.headerHomeImage} ${utilStyles.borderCircle}`}
               alt={name}
-            />
+            /> */}
             <h1 className={utilStyles.heading2Xl}>{name}</h1>
           </>
         ) : (

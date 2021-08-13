@@ -5,7 +5,12 @@
     /*max-width: 50%;*/
     margin: 15px;
     padding:20px;
+<<<<<<< Updated upstream
     display: inline-block;
+=======
+    /* display: flex;
+    align-items: center; */
+>>>>>>> Stashed changes
     /*background-color: #adf6ff;*/
 }
 
@@ -87,7 +92,7 @@
     background-color: #111;
     opacity: 0.5;
     cursor: pointer;
-    float: left;
+    
 }
 
 
