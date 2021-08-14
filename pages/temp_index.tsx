@@ -1,54 +1,67 @@
-import React, { useEffect, FC, useState } from 'react';
+import React, { useEffect, FC, useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import firebase from 'firebase/app';
 import { auth, firestore } from 'utils/firebase';
+import { AuthProvider, AuthContext } from '@/auth/AuthProvider';
 import { func } from 'prop-types';
 
+type PositionData = {
+  date: Date;
+  notified: boolean;
+  spot: string;
+  weather: string;
+};
+
 const Home: FC = (props: any) => {
+  const { currentUser } = useContext(AuthContext);
   const router = useRouter();
-  const [currentUser, setCurrentUser] = useState<null | object>(null);
+  const [positionData, setPositionData] = useState<PositionData[]>();
 
   useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
-      console.log('auth' + auth.onAuthStateChanged);
-      console.log(user);
-      user ? setCurrentUser(user) : router.push('/login'); //条件 ? 値1 : 値2 で条件が真なら値1でそうでない場合値2
-      //   !user.emailVerified && router.push('/sent');
-    });
+    console.log('auth' + auth.onAuthStateChanged);
+    console.log(currentUser);
+    // user ? CurrentUser(user) : router.push('/login'); //条件 ? 値1 : 値2 で条件が真なら値1でそうでない場合値2
+    //   !user.emailVerified && router.push('/sent');
   }, []);
 
   function sendTest() {
-    auth.onAuthStateChanged(async (user) => {
-      console.log(user);
+    if (currentUser) {
+      console.log(currentUser);
       firestore
         .collection('users')
-        .doc(user.uid)
+        .doc(currentUser.uid)
         .collection('notification_data')
         .add({
-          title: 'test',
+          spot: '東京',
           weather: 'sunny',
           notified: false,
-          created_at: firebase.firestore.FieldValue.serverTimestamp(),
+          date: firebase.firestore.FieldValue.serverTimestamp(),
         });
-    });
+    }
   }
   function getTest() {
-    auth.onAuthStateChanged(async (user) => {
-      console.log(user);
-      //   const getPosts = [];
+    if (currentUser) {
+      console.log(currentUser);
       firestore
         .collection('users')
-        .doc(user.uid)
+        .doc(currentUser.uid)
         .collection('notification_data')
         .get()
         .then((snapshot) => {
-          snapshot.docs.forEach((doc) => {
-            const data = doc.data();
-            console.log('Document data', data);
+          const data = snapshot.docs.map((doc) => {
+            return {
+              ...doc.data(),
+              date: doc.data().date.toDate(), //doc.data().date?.toDate()にするとdateがあるときだけtoDateを実行できる
+            } as PositionData;
+            // setPositionData(data);
+            // console.log('Document data', data);
           });
+          setPositionData(data);
         });
-    });
+    }
   }
+
+  console.log(positionData);
 
   const logOut = async () => {
     try {
