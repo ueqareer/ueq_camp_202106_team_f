@@ -30,7 +30,7 @@ const JapanMap = (props: Props) => {
       const id = $(this).data('id');
       const pref = prefectures.find((x) => x.id == id);
       if (pref) {
-        props.updateLatLon(pref.lat, pref.lng);
+        props.updateLatLon(pref.lat, pref.lon);
       }
       // props.getPlace(id);
       //このidを使用して行いたい操作をしてください

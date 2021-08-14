@@ -12,6 +12,7 @@ const Login: FC = () => {
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
       user && router.push('/temp_index');
+      console.log(user);
 
       if (user) {
         const userDoc = await firestore.collection('users').doc(user.uid).get();
@@ -57,9 +58,16 @@ const Login: FC = () => {
         </div>
         <button type="submit">Login</button>
       </form>
-      <Link href="/signup">
-        <a>signup</a>
-      </Link>
+      <div>
+        <Link href="/signup">
+          <a>signup</a>
+        </Link>
+      </div>
+      <div>
+        <Link href="/">
+          <a>home</a>
+        </Link>
+      </div>
     </div>
   );
 };

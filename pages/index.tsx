@@ -202,6 +202,7 @@ export default function Index() {
     setCurrentWeather(data.current);
     setDailyWeather(data.daily);
     setHourlyWeather(data.hourly);
+    console.log(data);
   };
 
   const [currentWeather, setCurrentWeather] = useState<Current>();

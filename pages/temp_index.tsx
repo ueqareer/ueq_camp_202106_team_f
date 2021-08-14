@@ -2,17 +2,18 @@ import React, { useEffect, FC, useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import firebase from 'firebase/app';
 import { auth, firestore } from 'utils/firebase';
-import { AuthProvider, AuthContext } from '@/auth/AuthProvider';
-import { func } from 'prop-types';
+import { /*AuthProvider, */ AuthContext } from '@/auth/AuthProvider';
+//import { func } from 'prop-types';
 
 type PositionData = {
   date: Date;
   notified: boolean;
   spot: string;
   weather: string;
+  schedule: Date;
 };
 
-const Home: FC = (props: any) => {
+const Home: FC = () => {
   const { currentUser } = useContext(AuthContext);
   const router = useRouter();
   const [positionData, setPositionData] = useState<PositionData[]>();
@@ -21,8 +22,12 @@ const Home: FC = (props: any) => {
     console.log('auth' + auth.onAuthStateChanged);
     console.log(currentUser);
     // user ? CurrentUser(user) : router.push('/login'); //条件 ? 値1 : 値2 で条件が真なら値1でそうでない場合値2
-    //   !user.emailVerified && router.push('/sent');
   }, []);
+
+  const value_test_notified = false;
+  const value_test_spot = '新潟';
+  const value_test_weather = 'cloudy';
+  const value_test_schedule = 'August 22, 2021';
 
   function sendTest() {
     if (currentUser) {
@@ -32,10 +37,13 @@ const Home: FC = (props: any) => {
         .doc(currentUser.uid)
         .collection('notification_data')
         .add({
-          spot: '東京',
-          weather: 'sunny',
-          notified: false,
           date: firebase.firestore.FieldValue.serverTimestamp(),
+          notified: value_test_notified,
+          spot: value_test_spot,
+          weather: value_test_weather,
+          schedule: firebase.firestore.Timestamp.fromDate(
+            new Date(value_test_schedule)
+          ),
         });
     }
   }
@@ -51,7 +59,8 @@ const Home: FC = (props: any) => {
           const data = snapshot.docs.map((doc) => {
             return {
               ...doc.data(),
-              date: doc.data().date.toDate(), //doc.data().date?.toDate()にするとdateがあるときだけtoDateを実行できる
+              date: doc.data().date.toDate(),
+              schedule: doc.data().schedule.toDate(),
             } as PositionData;
             // setPositionData(data);
             // console.log('Document data', data);

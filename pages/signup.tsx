@@ -46,9 +46,16 @@ const SignUp: FC = () => {
         </div>
         <button type="submit">SignUp</button>
       </form>
-      <Link href="/login">
-        <a>Login</a>
-      </Link>
+      <div>
+        <Link href="/login">
+          <a>LogIn</a>
+        </Link>
+      </div>
+      <div>
+        <Link href="/">
+          <a>home</a>
+        </Link>
+      </div>
     </div>
   );
 };
