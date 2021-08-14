@@ -1,7 +1,7 @@
 import React, { useEffect, useState, FC } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { auth, firestore } from 'utils/firebase';
 
 const Login: FC = () => {

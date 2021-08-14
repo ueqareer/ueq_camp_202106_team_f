@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { auth, firestore } from 'utils/firebase';
 
 const SignUp: FC = () => {

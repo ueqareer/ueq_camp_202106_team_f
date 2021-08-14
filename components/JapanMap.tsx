@@ -5,6 +5,7 @@ import { prefectures } from './japan';
 
 type Props = {
   updateLatLon: (lat: number, lon: number) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getPlace?: (arg0: any) => void;
 };
 
