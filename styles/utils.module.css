@@ -95,13 +95,22 @@
 
 }
 
+.inline{
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+}
+
 .weather {
   font-family: 'Open Sans Condensed', sans-serif;
   background: linear-gradient(to bottom right, #04BACC, #68d5e0);
-  width: 480px;
+  width: 520px;
   font-size: 21px;
   line-height: 1.5;
   color: #fff;
+  float: left;
 }
 
 .today {
@@ -111,7 +120,7 @@
 }
 
 .today .weatherIcon {
-  font-size: 162px;
+  font-size: 160px;
 }
 
 .today .weatherDetail .currentTemperature {
@@ -120,6 +129,14 @@
 
 .today .weatherDetail {
   padding-left: 75px;
+}
+
+.today .weatherDetail .rainyPercent{
+  font-size: 16px;
+}
+
+.currenTemperature{
+  font-size: 60px; 
 }
 
 .week {
@@ -131,9 +148,13 @@
 
 .day {
   flex-grow: 1;
-  padding: 21px 9px;
+  padding: 21px 5px;
   text-align: center;
   border-right: 1px solid #68d5e0;
+}
+
+.day .dayofTheweek {
+  font-size: 15px;
 }
 
 .day:last-child {
@@ -147,4 +168,20 @@
 
 .day .temperature {
   font-size: 16px;
+}
+
+.wear{
+  margin: 5px 5px;
+  padding: 5px 5px;
+}
+
+.wearicon{
+  margin: 5px;
+  padding: 5px 5px;
+  list-style: none;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
 }

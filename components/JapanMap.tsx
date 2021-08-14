@@ -1,7 +1,14 @@
 import React from 'react';
 import $ from 'jquery';
+import utilStyles from '@/styles/utils.module.css';
+import { prefectures } from './japan';
 
-const JapanMap = () => {
+type Props = {
+  updateLatLon: (lat: number, lon: number) => void;
+  getPlace?: (arg0: any) => void;
+};
+
+const JapanMap = (props: Props) => {
   //地域を選択
   $('.area_btn').click(function () {
     $('.area_overlay').show();
@@ -20,6 +27,11 @@ const JapanMap = () => {
   $('.pref_list [data-id]').click(function () {
     if ($(this).data('id')) {
       const id = $(this).data('id');
+      const pref = prefectures.find((x) => x.id == id);
+      if (pref) {
+        props.updateLatLon(pref.lat, pref.lng);
+      }
+      // props.getPlace(id);
       //このidを使用して行いたい操作をしてください
       //都道府県IDに応じて別ページに飛ばしたい場合はこんな風に書く↓
       //window.location.href = 'https://kinocolog.com/pref/' + id;
@@ -36,7 +48,7 @@ const JapanMap = () => {
   };
 
   return (
-    <>
+    <div className={utilStyles.inline}>
       <div className="japan_map">
         <img src="/japan.png" height={546} width={506} />
         <span className="area_btn area1" data-area="1">
@@ -45,7 +57,7 @@ const JapanMap = () => {
         <span className="area_btn area2" data-area="2">
           関東
         </span>
-        <span className="area_btn area2" data-area="3">
+        <span className="area_btn area3" data-area="3">
           中部
         </span>
         <span className="area_btn area4" data-area="4">
@@ -131,7 +143,7 @@ const JapanMap = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
