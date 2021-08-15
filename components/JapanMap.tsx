@@ -1,6 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
-import Index from '@/pages/index';
+import utilStyles from '@/styles/utils.module.css';
 
 const JapanMap = (props: { getPlace: (arg0: any) => void; }) => {
   //地域を選択
@@ -39,7 +39,7 @@ const JapanMap = (props: { getPlace: (arg0: any) => void; }) => {
   };
 
   return (
-    <>
+    <div className={utilStyles.inline}>
       <div className="japan_map">
         <img src="/japan.png" height={546} width={506} />
         <span className="area_btn area1" data-area="1">
@@ -48,7 +48,7 @@ const JapanMap = (props: { getPlace: (arg0: any) => void; }) => {
         <span className="area_btn area2" data-area="2">
           関東
         </span>
-        <span className="area_btn area2" data-area="3">
+        <span className="area_btn area3" data-area="3">
           中部
         </span>
         <span className="area_btn area4" data-area="4">
@@ -134,7 +134,7 @@ const JapanMap = (props: { getPlace: (arg0: any) => void; }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

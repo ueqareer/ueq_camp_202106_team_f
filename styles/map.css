@@ -5,7 +5,8 @@
     /*max-width: 50%;*/
     margin: 15px;
     padding:20px;
-    display: inline-block;
+    /*display: inline-block;*/
+    float: left;
     /*background-color: #adf6ff;*/
 }
 
