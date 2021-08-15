@@ -158,6 +158,7 @@ const displayWearIcon = (weartemp: Temp) => {
 export default function Index() {
   const [lat, setLat] = useState(35.6518205);
   const [lon, setLon] = useState(139.5446124);
+  const [pref, setPref] = useState('東京');
   const [indent, setIndent] = useState('13');
   const [open, setOpen] = useState(false);
   const [viewWear, setViewWear] = useState(false);
@@ -181,7 +182,9 @@ export default function Index() {
     setLat(lat);
     setLon(lon);
   };
-
+  const updatePref = (pref: string) => {
+    setPref(pref);
+  };
   /*
   //const getPlace:React.FC<Props> = { handleSomething }  =>{
   const getPlace  = useCallback((id:string) =>{
@@ -214,6 +217,11 @@ export default function Index() {
     getData();
   }, [lat, lon]);
 
+  // useEffect(() => {
+  //   updatePref(pref);
+  //   console.log(updatePref, pref);
+  // }, [pref]);
+
   if (!currentWeather) return null;
 
   return (
@@ -232,18 +240,19 @@ export default function Index() {
       <div className={utilStyles.main}>
         <div className={utilStyles.container1}>
           <h1>
-            Weahter<span>.</span>
+            Weather<span>.</span>
           </h1>
           <h2>毎日時の天気予報</h2>
         </div>
       </div>
 
       <div className={utilStyles.container}>
-        <JapanMap updateLatLon={updateLatLon} />
+        <JapanMap updateLatLon={updateLatLon} updatePref={updatePref} />
         <Weather
           currentWeather={currentWeather}
           dailyWeather={dailyWeather}
           hourlyWeather={hourlyWeather}
+          pref={pref}
         />
       </div>
 

@@ -55,17 +55,20 @@ type Props = {
   currentWeather: Current;
   dailyWeather: Daily[];
   hourlyWeather: Hourly[];
+  pref: string;
 };
 
 const Weather: React.FC<Props> = ({
   currentWeather,
   dailyWeather,
   hourlyWeather,
+  pref,
 }) => {
   return (
     <div className={utilStyles.weather}>
       <div className={utilStyles.today}>
         {format(today, 'yyyy/MM/dd (eee)', { locale: ja })}
+        <div className={utilStyles.pref}>{pref}</div>
         <div className={utilStyles.weatherIcon}>
           <i
             className={getWeatherInfo(currentWeather?.weather[0])?.weatherIcon}
