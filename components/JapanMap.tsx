@@ -1,8 +1,14 @@
 import React from 'react';
 import $ from 'jquery';
 import utilStyles from '@/styles/utils.module.css';
+import { prefectures } from './japan';
 
-const JapanMap = (props: { getPlace: (arg0: any) => void; }) => {
+type Props = {
+  updateLatLon: (lat: number, lon: number) => void;
+  getPlace?: (arg0: any) => void;
+};
+
+const JapanMap = (props: Props) => {
   //地域を選択
   $('.area_btn').click(function () {
     $('.area_overlay').show();
@@ -21,9 +27,12 @@ const JapanMap = (props: { getPlace: (arg0: any) => void; }) => {
   $('.pref_list [data-id]').click(function () {
     if ($(this).data('id')) {
       const id = $(this).data('id');
-      props.getPlace(id)
-
-      //このidを使用して行いたい操作をしてください      
+      const pref = prefectures.find((x) => x.id == id);
+      if (pref) {
+        props.updateLatLon(pref.lat, pref.lng);
+      }
+      // props.getPlace(id);
+      //このidを使用して行いたい操作をしてください
       //都道府県IDに応じて別ページに飛ばしたい場合はこんな風に書く↓
       //window.location.href = 'https://kinocolog.com/pref/' + id;
       console.log(id);
