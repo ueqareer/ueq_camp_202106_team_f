@@ -94,6 +94,14 @@
   display: flex;
 }
 
+.inline{
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+}
+
 .weather {
   font-family: 'Open Sans Condensed', sans-serif;
   background: linear-gradient(to bottom right, #04BACC, #68d5e0);
