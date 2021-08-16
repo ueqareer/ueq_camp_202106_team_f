@@ -67,8 +67,8 @@ const Weather: React.FC<Props> = ({
   return (
     <div className={utilStyles.weather}>
       <div className={utilStyles.today}>
+        {pref}
         {format(today, 'yyyy/MM/dd (eee)', { locale: ja })}
-        <div className={utilStyles.pref}>{pref}</div>
         <div className={utilStyles.weatherIcon}>
           <i
             className={getWeatherInfo(currentWeather?.weather[0])?.weatherIcon}

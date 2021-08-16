@@ -39,7 +39,7 @@ const JapanMap = (props: Props) => {
       //都道府県IDに応じて別ページに飛ばしたい場合はこんな風に書く↓
       //window.location.href = 'https://kinocolog.com/pref/' + id;
       console.log(id);
-      console.log('pref = ', pref?.pref);
+      console.log(pref?.pref);
       prefReset();
     }
   });

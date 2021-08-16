@@ -5,7 +5,7 @@ import { auth, firestore } from 'utils/firebase';
 import { /*AuthProvider, */ AuthContext } from '@/auth/AuthProvider';
 //import { func } from 'prop-types';
 
-type PositionData = {
+type RegisterdData = {
   date: Date;
   notified: boolean;
   spot: string;
@@ -16,7 +16,7 @@ type PositionData = {
 const Home: FC = () => {
   const { currentUser } = useContext(AuthContext);
   const router = useRouter();
-  const [positionData, setPositionData] = useState<PositionData[]>();
+  const [regiData, setRegiData] = useState<RegisterdData[]>();
 
   useEffect(() => {
     console.log('auth' + auth.onAuthStateChanged);
@@ -61,16 +61,16 @@ const Home: FC = () => {
               ...doc.data(),
               date: doc.data().date.toDate(),
               schedule: doc.data().schedule.toDate(),
-            } as PositionData;
+            } as RegisterdData;
             // setPositionData(data);
             // console.log('Document data', data);
           });
-          setPositionData(data);
+          setRegiData(data);
         });
     }
   }
 
-  console.log(positionData);
+  console.log(regiData);
 
   const logOut = async () => {
     try {

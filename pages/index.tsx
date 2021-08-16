@@ -158,8 +158,8 @@ const displayWearIcon = (weartemp: Temp) => {
 export default function Index() {
   const [lat, setLat] = useState(35.6518205);
   const [lon, setLon] = useState(139.5446124);
-  const [pref, setPref] = useState('東京');
-  const [indent, setIndent] = useState('13');
+  const [pref, setPref] = useState('東京都');
+  // const [indent, setIndent] = useState('13');
   const [open, setOpen] = useState(false);
   const [viewWear, setViewWear] = useState(false);
   const [viewHot, setViewHot] = useState(false);
@@ -215,7 +215,7 @@ export default function Index() {
   useEffect(() => {
     //getPlace(id:string);
     getData();
-  }, [lat, lon]);
+  }, [lat, lon]); //どっちか片方しか必要ないかも？
 
   // useEffect(() => {
   //   updatePref(pref);
