@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+import LoginForm from '@/components/Forms/LoginForm';
 import FormDialog from '@/components/Forms/FormDialog';
 import Layout from '@/components/Layout';
 import JapanMap from '@/components/JapanMap';
@@ -155,20 +156,31 @@ const displayWearIcon = (weartemp: Temp) => {
   }
 };
 
-export default function Index() {
+export default function Index(){
   const [lat, setLat] = useState(35.6518205);
   const [lon, setLon] = useState(139.5446124);
   const [indent, setIndent] = useState('13');
-  const [open, setOpen] = useState(false);
-  const [viewWear, setViewWear] = useState(false);
+  const [open, setOpen] = useState(false);open
+  const [openl, setOpenl] = useState(false);openl
+  const [viewWear, setViewWear] = useState(false)
   const [viewHot, setViewHot] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  const handleClickOpenl = () => {
+    setOpenl(true);
+  };
+
+
+
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleClosel = () => {
+    setOpenl(false);
   };
 
   const handleOk = (viewWear: boolean, viewHot: boolean) => {
@@ -216,14 +228,22 @@ export default function Index() {
   if (!currentWeather) return null;
 
   return (
+
+    
+    
+
     <Layout home>
       <div className={utilStyles.header}>
         <div className={utilStyles.headerLogo}>Weather</div>
         <div className={utilStyles.headerList}>
           <ul>
-            <li>週間天気予報</li>
-            <li>その他</li>
-            <li>その他</li>
+              <LoginForm
+               openl={openl}
+        handleClosel={handleClosel}
+              />
+          <div>
+        <button onClick={handleClickOpenl}>ログイン</button>
+      </div>
           </ul>
         </div>
       </div>
