@@ -180,3 +180,8 @@
   padding: 5px 5px;
   list-style: none;
 }
+
+.container {
+  display: flex;
+  justify-content: space-around;
+}

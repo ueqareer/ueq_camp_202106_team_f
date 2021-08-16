@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { format, fromUnixTime } from 'date-fns';
-import ja from 'date-fns/locale/ja';
-//import Data from '@/public/data/japan.json'
-//import Checkbox from '@/components/checkbox';
+import React, { useState, useEffect } from 'react';
 
+import FormDialog from '@/components/Forms/FormDialog';
 import Layout from '@/components/Layout';
-import utilStyles from '@/styles/utils.module.css';
 import JapanMap from '@/components/JapanMap';
+import Weather from '@/components/Weather';
+
+import utilStyles from '@/styles/utils.module.css';
 
 export interface Weather {
   id: number;
@@ -44,7 +43,7 @@ interface Weather2 {
   icon: string;
 }
 
-interface Hourly {
+export interface Hourly {
   dt: number;
   temp: number;
   feels_like: number;
@@ -84,7 +83,7 @@ interface Weather3 {
   icon: string;
 }
 
-interface Daily {
+export interface Daily {
   dt: number;
   sunrise: number;
   sunset: number;
@@ -128,93 +127,68 @@ export interface Data{
 //const lat = 35.6518205;
 //const lon = 139.5446124;
 
-const today = new Date();
-
-const displayWearIcon = (weartemp:Temp)=>{
-  if(weartemp.min>=30){
-    return{
-      iconlabel:'wear5.png'
-    }
-  }
-  if(22.5<=weartemp.min && weartemp.min<30){
-    return{
-      iconlabel:'wear4.png'
-    }
-  }
-  if(15<=weartemp.min && weartemp.min<22.5){
-    return{
-      iconlabel:'wear3.png'
-    }
-  }
-  if(10<=weartemp.min && weartemp.min<15){
-    return{
-      iconlabel:'wear2.png'
-    }
-  }
-  if(weartemp.min<10){
-    return{
-      iconlabel:'outor.png'
-    }
-  }
-}
-
-const getWeatherInfo = (weather: Weather) => {
-  if (weather.main === 'Clouds') {
+const displayWearIcon = (weartemp: Temp) => {
+  if (weartemp.min >= 30) {
     return {
-      label: '曇り',
-      weatherIcon: 'wi wi-cloud',
+      iconlabel: 'wear5.png',
     };
   }
-  if (weather.main === 'Clear') {
+  if (22.5 <= weartemp.min && weartemp.min < 30) {
     return {
-      label: '快晴',
-      weatherIcon: 'wi wi-day-sunny',
+      iconlabel: 'wear4.png',
     };
   }
-  if (weather.main === 'Snow') {
+  if (15 <= weartemp.min && weartemp.min < 22.5) {
     return {
-      label: '雪',
-      weatherIcon: 'wi wi-snow',
+      iconlabel: 'wear3.png',
     };
-  }if (weather.main === 'Rain') {
+  }
+  if (10 <= weartemp.min && weartemp.min < 15) {
     return {
-      label: '雨',
-      weatherIcon: 'wi wi-rain',
+      iconlabel: 'wear2.png',
     };
-  }if (weather.main === 'Drizzle') {
+  }
+  if (weartemp.min < 10) {
     return {
-      label: '霧雨',
-      weatherIcon: 'wwi wi-sleet',
-    };
-  }if (weather.main === 'Thunderstorm') {
-    return {
-      label: '雷雨',
-      weatherIcon: 'wi wi-thunderstorm',
-    };
-  }else{
-    return {
-      label: '',
-      weatherIcon: 'wi wi-dust',
+      iconlabel: 'outor.png',
     };
   }
 };
 
 export default function Index() {
-  
   const [lat, setLat] = useState(35.6518205);
   const [lon, setLon] = useState(139.5446124);
-  const [id, setId] = useState('13');
+  const [indent, setIndent] = useState('13');
+  const [open, setOpen] = useState(false);
+  const [viewWear, setViewWear] = useState(false);
+  const [viewHot, setViewHot] = useState(false);
 
-  type Props ={
-    handleSomething: VoidFunction, 
-  }
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOk = (viewWear: boolean, viewHot: boolean) => {
+    setViewWear(viewWear);
+    setViewHot(viewHot);
+    setOpen(false);
+  };
+
+  const updateLatLon = (lat: number, lon: number) => {
+    setLat(lat);
+    setLon(lon);
+  };
 
   /*
-  const getPlace:React.FC<Props> = { handleSomething }  =>{
+  //const getPlace:React.FC<Props> = { handleSomething }  =>{
+  const getPlace  = useCallback((id:string) =>{
     console.log(Data)
-    setId(id)
+    setIndent(id)
     for(var i=0; i<Data.length; i++){
-      if(id===Data[i].id)
+      if(indent===Data[i].id)
       setLat(Data[i].lat)
       setLon(Data[i].lng)
     }
@@ -228,8 +202,6 @@ export default function Index() {
     setCurrentWeather(data.current);
     setDailyWeather(data.daily);
     setHourlyWeather(data.hourly);
-    //console.log(currentWeather);
-    //console.log(dailyWeather);
   };
 
   const [currentWeather, setCurrentWeather] = useState<Current>();
@@ -237,10 +209,9 @@ export default function Index() {
   const [hourlyWeather, setHourlyWeather] = useState<Hourly[]>([]);
 
   useEffect(() => {
-    //getPlace(id);
+    //getPlace(id:string);
     getData();
-  }, []/*[lat, lon]*/);
-
+  }, [lat, lon]);
 
   if (!currentWeather) return null;
 
@@ -266,68 +237,64 @@ export default function Index() {
         </div>
       </div>
 
-      <JapanMap /*Place={getPlace}*//>
-
-      <>
-      {/*<Checkbox />*/}
-       </>
-
-      <div className={utilStyles.weather}>
-        <div className={utilStyles.today}>
-          {format(today, 'yyyy/MM/dd (eee)', { locale: ja })}
-          <div className={utilStyles.weatherIcon}>
-            <i
-              className={
-                getWeatherInfo(currentWeather?.weather[0])?.weatherIcon
-              }
-            />
-          </div>
-          <div className={utilStyles.weatherDetail}>
-            <div id="ctempid" className={utilStyles.currenTemperature}>
-              {Math.round(currentWeather.temp)}°
-            </div>
-            <div id="cweather">{getWeatherInfo(currentWeather?.weather[0])?.label}</div>
-            <div className={utilStyles.temperature}>
-              <span id="cmaxtem">{Math.round(dailyWeather[0]?.temp.max)}°</span>/
-              <span id="cminem">{Math.round(dailyWeather[0]?.temp.min)}°</span>
-            </div>
-            <div className={utilStyles.rainyPercent}>降水 {hourlyWeather[0]?.pop*100}%</div>
-          </div>
-        </div>
-
-        <ul className={utilStyles.week}>
-          {dailyWeather.slice(1,7).map((x) => (
-            <li key={x.dt} className={utilStyles.day}>
-              <div id="week1" className={utilStyles.dayofTheweek}>
-                {format(fromUnixTime(x.dt), 'yyyy/MM/dd (eee)', { locale: ja })}
-              </div>
-              <div className={utilStyles.weatherIcon}>
-                <i className={getWeatherInfo(x.weather[0])?.weatherIcon} />
-              </div>
-              <div className={utilStyles.temperature}>
-                <span>{Math.round(x.temp.max)}°</span>/<span>{Math.round(x.temp.min)}°</span>
-              </div>
-            </li>
-          ))}
-        </ul>
+      <div className={utilStyles.container}>
+        <JapanMap updateLatLon={updateLatLon} />
+        <Weather
+          currentWeather={currentWeather}
+          dailyWeather={dailyWeather}
+          hourlyWeather={hourlyWeather}
+        />
       </div>
+
+      <FormDialog
+        open={open}
+        handleClose={handleClose}
+        handleOk={handleOk}
+        viewWear={viewWear}
+        viewHot={viewHot}
+      />
 
       <div className={utilStyles.wear}>
-      <button /*onClick={}*/>服装指数</button>
+        <button onClick={handleClickOpen}>指数追加</button>
       </div>
-      <div className={utilStyles.wearicon}>
-      {dailyWeather.slice(0,1).map((x) => (
-        <li key={x.dt}>
-        <img src={displayWearIcon(x.temp)?.iconlabel} height={50} width={50} />
-        </li>
-      ))}
-      </div>
+
+      {viewWear && (
+        <div className={utilStyles.wearicon}>
+          {dailyWeather.slice(0, 1).map((x) => (
+            <li key={x.dt}>
+              <div>服装指数</div>
+              <img
+                src={displayWearIcon(x.temp)?.iconlabel}
+                height={50}
+                width={50}
+              />
+            </li>
+          ))}
+        </div>
+      )}
+
+      {viewHot && (
+        <div className={utilStyles.wearicon}>
+          {dailyWeather.slice(0, 1).map((x) => (
+            <li key={x.dt}>
+              <div>熱中症指数</div>
+              <img
+                src={displayWearIcon(x.temp)?.iconlabel}
+                height={50}
+                width={50}
+              />
+            </li>
+          ))}
+        </div>
+      )}
 
       <div className={utilStyles.footer}>
         <div className={utilStyles.footerLogo}>WeatherAPI</div>
         <div className={utilStyles.footerList}>
           <ul>
+            <li>適当</li>
             <li>お問い合わせ</li>
+            <li>わああああ</li>
           </ul>
         </div>
       </div>
