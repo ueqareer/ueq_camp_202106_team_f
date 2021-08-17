@@ -5,7 +5,9 @@ import { prefectures } from './japan';
 
 type Props = {
   updateLatLon: (lat: number, lon: number) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getPlace?: (arg0: any) => void;
+  updatePref: (pref: string) => void;
 };
 
 const JapanMap = (props: Props) => {
@@ -29,13 +31,15 @@ const JapanMap = (props: Props) => {
       const id = $(this).data('id');
       const pref = prefectures.find((x) => x.id == id);
       if (pref) {
-        props.updateLatLon(pref.lat, pref.lng);
+        props.updateLatLon(pref.lat, pref.lon);
+        props.updatePref(pref.pref);
       }
       // props.getPlace(id);
       //このidを使用して行いたい操作をしてください
       //都道府県IDに応じて別ページに飛ばしたい場合はこんな風に書く↓
       //window.location.href = 'https://kinocolog.com/pref/' + id;
       console.log(id);
+      console.log(pref?.pref);
       prefReset();
     }
   });

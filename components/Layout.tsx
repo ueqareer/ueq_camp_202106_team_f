@@ -15,7 +15,7 @@ const Layout: React.FC<Props> = ({ children, home }) => {
       <header className={styles.header}>
         {home ? (
           <>
-          {/*
+            {/*
             <img
               src="#"
               className={`${styles.headerHomeImage} ${utilStyles.borderCircle}`}
@@ -26,7 +26,7 @@ const Layout: React.FC<Props> = ({ children, home }) => {
           </>
         ) : (
           <>
-          {/*
+            {/*
             <Link href="/">
               <a>
                 <img
