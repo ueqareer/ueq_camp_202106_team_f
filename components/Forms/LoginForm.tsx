@@ -1,63 +1,101 @@
-import React from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import TextInput from './TextInput';
 
-type State = {
-};
+import Link from 'next/link';
+import router, { useRouter } from 'next/router';
+import firebase from 'firebase/app';
+import { auth, firestore } from 'utils/firebase';
+import { DialogContentText } from '@material-ui/core';
 
-type Props = {
-  openl: boolean;
-  handleClosel: () => void;
-};
+const LoginForm = (props: { openl: boolean; handleClosel: () => void }) => {
 
-export default class LoginForm extends React.Component<Props, State> {
-state ={ 	
-	name: "",
- 	email: "",
- };
+const router = useRouter()
+const [email, setEmail] = useState<string>('');
+const [password, setPassword] = useState<string>('');
 
-inputName = (event: { target: { value: any; }; }) => {
-	this.setState({name: event.target.value})
-}
+useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      user && router.push('/temp_index');
+      console.log(user);
 
-inputEmail = (event: { target: { value: any; }; }) => {
-	this.setState({email: event.target.value})
-}
+      if (user) {
+        const userDoc = await firestore.collection('users').doc(user.uid).get();
+        if (!userDoc.exists) {
+          await userDoc.ref.set({
+            screen_name: user.uid,
+            display_name: 'test',
+            created_at: firebase.firestore.FieldValue.serverTimestamp(),
+          });
+        }
+      }
+    });
+  }, []);
 
+  const logIn = async (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      router.push('/temp_index');
+    } catch (err) {
+      alert(err.message);
+    }
+  };
 	
-  render(){
     return (
       <Dialog
-        open={this.props.openl}
-        onClose={this.props.handleClosel}
+        open={props.openl}
+        onClose={props.handleClosel}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">ログイン画面</DialogTitle>
+        <DialogTitle id="alert-dialog-title">ログイン</DialogTitle>
+
+
         <DialogContent>
-          <TextInput
-	  	label={"email"} multiline={false} rows={1} 
-		value={this.state.name} type={"text"} onChange={this.inputName}
-	  />
-	   <TextInput
-	  	label={"password"} multiline={false} rows={1} 
-		value={this.state.name} type={"text"} onChange={this.inputEmail}
-	  />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.props.handleClosel} color="primary">
+         <DialogContentText>
+        <div>
+          <form onSubmit={logIn}>
+        <div>
+          <label htmlFor="email">Email: </label>
+          <input
+            id="email"
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password: </label>
+          <input
+            id="password"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+
+         <DialogActions>
+          <Button onClick={props.handleClosel} color="primary">
             キャンセル
           </Button>
-	  <Button onClick={this.props.handleClosel} color="primary">
+	  <Button type = "submit" color="primary">
             ログイン
           </Button>
           
         </DialogActions>
+        </form>
+        </div>
+         </DialogContentText>
+        </DialogContent>
+
+
+        
+       
       </Dialog>
     );
-  }
+  
 }
+
+export default LoginForm;

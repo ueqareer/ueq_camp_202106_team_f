@@ -30,12 +30,20 @@
   padding-top:100px;
 }
 
-.input{
+/* .input{
   
 }
 
 .main{
 
+} */
+
+.inline{
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
 }
 
 .inline{
@@ -127,4 +135,10 @@
 .container {
   display: flex;
   justify-content: space-around;
+}
+
+.pref{
+  width: 20px;
+  font-size: 20px;
+  display: flex;
 }
