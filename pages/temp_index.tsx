@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import firebase from 'firebase/app';
 import { auth, firestore } from 'utils/firebase';
 import { /*AuthProvider, */ AuthContext } from '@/auth/AuthProvider';
+import AddIvent from '@/components/Forms/AddIvent '
+import utilStyles from '@/styles/utils.module.css';
 //import { func } from 'prop-types';
 
 type RegisterdData = {
@@ -25,9 +27,9 @@ const Home: FC = () => {
   }, []);
 
   const value_test_notified = false;
-  const value_test_spot = '東京';
+  const value_test_spot = '新潟';
   const value_test_weather = 'cloudy';
-  const value_test_schedule = 'August 1, 2021';
+  const value_test_schedule = 'August 22, 2021';
 
   function sendTest() {
     if (currentUser) {
@@ -75,15 +77,57 @@ const Home: FC = () => {
   const logOut = async () => {
     try {
       await auth.signOut();
-      router.push('/');
+      router.push('/login');
     } catch (error) {
       alert(error.message);
     }
   };
 
+
+  const sendInfo=(value_spot:string, value_schedule:string)=>{
+    console.log(value_spot);
+    console.log(value_schedule);
+    if (currentUser) {
+      console.log(currentUser);
+      firestore
+        .collection('users')
+        .doc(currentUser.uid)
+        .collection('notification_data')
+        .add({
+          date: firebase.firestore.FieldValue.serverTimestamp(),
+          spot: value_spot,
+          schedule: firebase.firestore.Timestamp.fromDate(
+            new Date(value_schedule)
+          ),
+        });
+    }
+    setAddOpen(false);
+  }
+
+   const [addOpen, setAddOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setAddOpen(true);
+  };
+
+  const handleClickClose = () => {
+    setAddOpen(false);
+  };
+
+
   return (
     <div>
-      <pre>{currentUser && JSON.stringify(currentUser, null, 4)}</pre>
+      {/*<pre>{currentUser && JSON.stringify(currentUser, null, 4)}</pre>*/}
+      <AddIvent
+        addOpen={addOpen}
+        handleClickClose={handleClickClose}
+        //value_spot={value_spot}
+        //value_schedule={value_schedule}
+        sendInfo={sendInfo}
+      />
+      <div className={utilStyles.wear}>
+        <button onClick={handleClickOpen}>日程を追加</button>
+      </div>
       <button onClick={getTest}>GetTest</button>
       <button onClick={sendTest}>SendTest</button>
       <button onClick={logOut}>Logout</button>
