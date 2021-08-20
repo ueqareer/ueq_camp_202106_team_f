@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
+import LoginForm from '@/components/Forms/LoginForm';
 import FormDialog from '@/components/Forms/FormDialog';
 import Layout from '@/components/Layout';
 import JapanMap from '@/components/JapanMap';
 import Weather from '@/components/Weather';
 
 import utilStyles from '@/styles/utils.module.css';
+import SignupForm from '@/components/Forms/SignupForm';
 
 export interface Weather {
   id: number;
@@ -155,11 +157,15 @@ const displayWearIcon = (weartemp: Temp) => {
   }
 };
 
+
 export default function Index() {
   const [lat, setLat] = useState(35.6518205);
   const [lon, setLon] = useState(139.5446124);
-  const [indent, setIndent] = useState('13');
-  const [open, setOpen] = useState(false);
+  const [pref, setPref] = useState('東京都');
+  // const [indent, setIndent] = useState('13');
+  const [open, setOpen] = useState(false);open
+  const [openl, setOpenl] = useState(false);openl
+  const [opens, setOpens] = useState(false);opens
   const [viewWear, setViewWear] = useState(false);
   const [viewHot, setViewHot] = useState(false);
 
@@ -167,9 +173,30 @@ export default function Index() {
     setOpen(true);
   };
 
+  const handleClickOpenl = () => {
+    setOpenl(true);
+  };
+
+   const handleClickOpens = () => {
+    setOpens(true);
+  };
+
+
+
+
+
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleClosel = () => {
+    setOpenl(false);
+  };
+
+  const handleCloses= () => {
+    setOpens(false);
+  };
+
 
   const handleOk = (viewWear: boolean, viewHot: boolean) => {
     setViewWear(viewWear);
@@ -181,7 +208,9 @@ export default function Index() {
     setLat(lat);
     setLon(lon);
   };
-
+  const updatePref = (pref: string) => {
+    setPref(pref);
+  };
   /*
   //const getPlace:React.FC<Props> = { handleSomething }  =>{
   const getPlace  = useCallback((id:string) =>{
@@ -202,6 +231,7 @@ export default function Index() {
     setCurrentWeather(data.current);
     setDailyWeather(data.daily);
     setHourlyWeather(data.hourly);
+    console.log(data);
   };
 
   const [currentWeather, setCurrentWeather] = useState<Current>();
@@ -211,38 +241,61 @@ export default function Index() {
   useEffect(() => {
     //getPlace(id:string);
     getData();
-  }, [lat, lon]);
+  }, [lat, lon]); //どっちか片方しか必要ないかも？
+
+  // useEffect(() => {
+  //   updatePref(pref);
+  //   console.log(updatePref, pref);
+  // }, [pref]);
 
   if (!currentWeather) return null;
 
   return (
+
+    
+    
+
     <Layout home>
       <div className={utilStyles.header}>
         <div className={utilStyles.headerLogo}>Weather</div>
         <div className={utilStyles.headerList}>
-          <ul>
-            <li>週間天気予報</li>
-            <li>その他</li>
-            <li>その他</li>
-          </ul>
+
+               <LoginForm
+               openl={openl}
+        handleClosel={handleClosel}
+              />             
+          <div>
+        <button onClick={handleClickOpenl}>ログイン</button>
+      </div>
+      
+      
+              <SignupForm
+               opens={opens}
+        handleCloses={handleCloses}
+              />             
+          <div>
+        <button onClick={handleClickOpens}>新規登録</button>
+      </div>
+
         </div>
       </div>
 
       <div className={utilStyles.main}>
         <div className={utilStyles.container1}>
           <h1>
-            Weahter<span>.</span>
+            Weather<span>.</span>
           </h1>
           <h2>毎日時の天気予報</h2>
         </div>
       </div>
 
       <div className={utilStyles.container}>
-        <JapanMap updateLatLon={updateLatLon} />
+        <JapanMap updateLatLon={updateLatLon} updatePref={updatePref} />
         <Weather
           currentWeather={currentWeather}
           dailyWeather={dailyWeather}
           hourlyWeather={hourlyWeather}
+          pref={pref}
         />
       </div>
 
