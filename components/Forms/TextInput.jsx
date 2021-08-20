@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 const TextInput =(props)=>{
     return(
         <TextField
-            id={props.id}
+            id="standard-basic" 
             label={props.label}
             fullWidth={true}
             margin={"dense"}
@@ -14,7 +14,6 @@ const TextInput =(props)=>{
             value={props.value}
             type={props.type}
             onChange={props.onChange}
-            helperText={props.text}
         />
     )
 }

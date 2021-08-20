@@ -114,6 +114,11 @@ const Home: FC = () => {
     setAddOpen(false);
   };
 
+  const handleClickOk = (viewWear: string, viewHot: string) => {
+    //setValue_spot(viewWear);
+    //setValue_schedule(viewHot);
+    setAddOpen(false);
+  };
 
   return (
     <div>
@@ -121,6 +126,7 @@ const Home: FC = () => {
       <AddIvent
         addOpen={addOpen}
         handleClickClose={handleClickClose}
+        handleClickOk={handleClickOk}
         //value_spot={value_spot}
         //value_schedule={value_schedule}
         sendInfo={sendInfo}
