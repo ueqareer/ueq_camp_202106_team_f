@@ -77,7 +77,7 @@ const Home: FC = () => {
   const logOut = async () => {
     try {
       await auth.signOut();
-      router.push('/login');
+      router.push('/');
     } catch (error) {
       alert(error.message);
     }
@@ -114,19 +114,12 @@ const Home: FC = () => {
     setAddOpen(false);
   };
 
-  const handleClickOk = (viewWear: string, viewHot: string) => {
-    //setValue_spot(viewWear);
-    //setValue_schedule(viewHot);
-    setAddOpen(false);
-  };
-
   return (
     <div>
       {/*<pre>{currentUser && JSON.stringify(currentUser, null, 4)}</pre>*/}
       <AddIvent
         addOpen={addOpen}
         handleClickClose={handleClickClose}
-        handleClickOk={handleClickOk}
         //value_spot={value_spot}
         //value_schedule={value_schedule}
         sendInfo={sendInfo}
