@@ -7,6 +7,7 @@ import JapanMap from '@/components/JapanMap';
 import Weather from '@/components/Weather';
 
 import utilStyles from '@/styles/utils.module.css';
+import SignupForm from '@/components/Forms/SignupForm';
 
 export interface Weather {
   id: number;
@@ -164,6 +165,7 @@ export default function Index() {
   // const [indent, setIndent] = useState('13');
   const [open, setOpen] = useState(false);open
   const [openl, setOpenl] = useState(false);openl
+  const [opens, setOpens] = useState(false);opens
   const [viewWear, setViewWear] = useState(false);
   const [viewHot, setViewHot] = useState(false);
 
@@ -175,6 +177,12 @@ export default function Index() {
     setOpenl(true);
   };
 
+   const handleClickOpens = () => {
+    setOpens(true);
+  };
+
+
+
 
 
   const handleClose = () => {
@@ -184,6 +192,11 @@ export default function Index() {
   const handleClosel = () => {
     setOpenl(false);
   };
+
+  const handleCloses= () => {
+    setOpens(false);
+  };
+
 
   const handleOk = (viewWear: boolean, viewHot: boolean) => {
     setViewWear(viewWear);
@@ -246,15 +259,24 @@ export default function Index() {
       <div className={utilStyles.header}>
         <div className={utilStyles.headerLogo}>Weather</div>
         <div className={utilStyles.headerList}>
-          <ul>
-              <LoginForm
+
+               <LoginForm
                openl={openl}
         handleClosel={handleClosel}
-              />
+              />             
           <div>
         <button onClick={handleClickOpenl}>ログイン</button>
       </div>
-          </ul>
+      
+      
+              <SignupForm
+               opens={opens}
+        handleCloses={handleCloses}
+              />             
+          <div>
+        <button onClick={handleClickOpens}>新規登録</button>
+      </div>
+
         </div>
       </div>
 

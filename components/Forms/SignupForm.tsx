@@ -6,11 +6,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import  { useRouter } from 'next/router';
-import firebase from 'firebase/app';
-import { auth, firestore } from 'utils/firebase';
+import { auth } from 'utils/firebase';
 import { DialogContentText } from '@material-ui/core';
 
-const LoginForm = (props: { openl: boolean; handleClosel: () => void }) => {
+const SignupForm = (props: { opens: boolean; handleCloses: () => void }) => {
 
 const router = useRouter()
 const [email, setEmail] = useState<string>('');
@@ -19,25 +18,13 @@ const [password, setPassword] = useState<string>('');
 useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
       user && router.push('/temp_index');
-      console.log(user);
-
-      if (user) {
-        const userDoc = await firestore.collection('users').doc(user.uid).get();
-        if (!userDoc.exists) {
-          await userDoc.ref.set({
-            screen_name: user.uid,
-            display_name: 'test',
-            created_at: firebase.firestore.FieldValue.serverTimestamp(),
-          });
-        }
-      }
     });
   }, []);
 
-  const logIn = async (e: { preventDefault: () => void; }) => {
+  const createUser = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     try {
-      await auth.signInWithEmailAndPassword(email, password);
+      await auth.createUserWithEmailAndPassword(email, password);
       router.push('/temp_index');
     } catch (err) {
       alert(err.message);
@@ -46,18 +33,18 @@ useEffect(() => {
 	
     return (
       <Dialog
-        open={props.openl}
-        onClose={props.handleClosel}
+        open={props.opens}
+        onClose={props.handleCloses}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">ログイン</DialogTitle>
+        <DialogTitle id="alert-dialog-title">新規登録</DialogTitle>
 
 
         <DialogContent>
          <DialogContentText>
         <div>
-          <form onSubmit={logIn}>
+          <form onSubmit={createUser}>
         <div>
           <label htmlFor="email">Email: </label>
           <input
@@ -76,11 +63,11 @@ useEffect(() => {
         </div>
 
          <DialogActions>
-          <Button onClick={props.handleClosel} color="primary">
+          <Button onClick={props.handleCloses} color="primary">
             キャンセル
           </Button>
 	  <Button type = "submit" color="primary">
-            ログイン
+            サインアップ
           </Button>
           
         </DialogActions>
@@ -97,4 +84,4 @@ useEffect(() => {
   
 }
 
-export default LoginForm;
+export default SignupForm;

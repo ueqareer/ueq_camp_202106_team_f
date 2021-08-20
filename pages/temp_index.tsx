@@ -75,7 +75,7 @@ const Home: FC = () => {
   const logOut = async () => {
     try {
       await auth.signOut();
-      router.push('/login');
+      router.push('/');
     } catch (error) {
       alert(error.message);
     }
