@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import firebase from 'firebase/app';
 import { auth, firestore } from 'utils/firebase';
 import { /*AuthProvider, */ AuthContext } from '@/auth/AuthProvider';
+import AddIvent from '@/components/Forms/AddIvent '
+import utilStyles from '@/styles/utils.module.css';
 //import { func } from 'prop-types';
 
 type RegisterdData = {
@@ -81,9 +83,56 @@ const Home: FC = () => {
     }
   };
 
+  const [value_spot, setValue_spot] = useState('新潟');
+  const [value_schedule, setValue_schedule] = useState('');
+
+  const send=(value_spot:string, value_schedule:string)=>{
+    if (currentUser) {
+      console.log(currentUser);
+      firestore
+        .collection('users')
+        .doc(currentUser.uid)
+        .collection('notification_data')
+        .add({
+          date: firebase.firestore.FieldValue.serverTimestamp(),
+          spot: value_spot,
+          schedule: firebase.firestore.Timestamp.fromDate(
+            new Date(value_schedule)
+          ),
+        });
+    }
+  }
+
+   const [addOpen, setAddOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setAddOpen(true);
+  };
+
+  const handleClickClose = () => {
+    setAddOpen(false);
+  };
+
+  const handleClickOk = (viewWear: string, viewHot: string) => {
+    setValue_spot(viewWear);
+    setValue_schedule(viewHot);
+    setAddOpen(false);
+  };
+
   return (
     <div>
       <pre>{currentUser && JSON.stringify(currentUser, null, 4)}</pre>
+      <AddIvent
+        addOpen={addOpen}
+        handleClickClose={handleClickClose}
+        handleClickOk={handleClickOk}
+        value_spot={value_spot}
+        value_schedule={value_schedule}
+        send={send}
+      />
+      <div className={utilStyles.wear}>
+        <button onClick={handleClickOpen}>日程を追加</button>
+      </div>
       <button onClick={getTest}>GetTest</button>
       <button onClick={sendTest}>SendTest</button>
       <button onClick={logOut}>Logout</button>
