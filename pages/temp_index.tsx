@@ -25,9 +25,9 @@ const Home: FC = () => {
   }, []);
 
   const value_test_notified = false;
-  const value_test_spot = '新潟';
+  const value_test_spot = '東京';
   const value_test_weather = 'cloudy';
-  const value_test_schedule = 'August 22, 2021';
+  const value_test_schedule = 'August 1, 2021';
 
   function sendTest() {
     if (currentUser) {
@@ -75,7 +75,7 @@ const Home: FC = () => {
   const logOut = async () => {
     try {
       await auth.signOut();
-      router.push('/login');
+      router.push('/');
     } catch (error) {
       alert(error.message);
     }
