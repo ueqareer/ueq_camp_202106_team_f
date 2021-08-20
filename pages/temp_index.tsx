@@ -83,8 +83,6 @@ const Home: FC = () => {
     }
   };
 
-  const [value_spot, setValue_spot] = useState('新潟');
-  const [value_schedule, setValue_schedule] = useState('');
 
   const sendInfo=(value_spot:string, value_schedule:string)=>{
     console.log(value_spot);
@@ -103,6 +101,7 @@ const Home: FC = () => {
           ),
         });
     }
+    setAddOpen(false);
   }
 
    const [addOpen, setAddOpen] = useState(false);
@@ -123,13 +122,13 @@ const Home: FC = () => {
 
   return (
     <div>
-      <pre>{currentUser && JSON.stringify(currentUser, null, 4)}</pre>
+      {/*<pre>{currentUser && JSON.stringify(currentUser, null, 4)}</pre>*/}
       <AddIvent
         addOpen={addOpen}
         handleClickClose={handleClickClose}
         handleClickOk={handleClickOk}
-        value_spot={value_spot}
-        value_schedule={value_schedule}
+        //value_spot={value_spot}
+        //value_schedule={value_schedule}
         sendInfo={sendInfo}
       />
       <div className={utilStyles.wear}>

@@ -12,17 +12,12 @@ import TextField from '@material-ui/core/TextField';
 type State = {
   eventDate:string;
   eventPrefecture:string;
-  //value_spot:string;
-  //value_schedule:string;
 };
 
 type Props = {
   addOpen: boolean;
   handleClickClose: () => void;
-  handleClickOk: (viewWear: string, viewHot: string) => void;
   sendInfo: (value_spot:string, value_schedule:string) => void;
-  //value_spot: string;
-  //value_schedule: string;
 };
 
 const currencies = [
@@ -37,15 +32,10 @@ export default class AddIvent extends React.Component<Props, State> {
   state = {
     eventDate:"2021/08/18",
     eventPrefecture:"東京都",
-    //value_spot:this.props.value_spot,
-    //value_schedule:this.props.value_schedule
   };
 
   inputDate=(event: React.ChangeEvent<HTMLInputElement>)=>{
-    //console.log(event.target.value);
     this.setState({eventDate:event.target.value});
-    //console.log(event.target.value);
-    //console.log(this.state.eventDate);
 }
 
   render() {
@@ -90,8 +80,7 @@ export default class AddIvent extends React.Component<Props, State> {
           </Button>
           <Button
             onClick={() => {
-              //this.props.handleClickOk(this.state.value_spot, this.state.value_schedule);
-              this.props.sendInfo(this.state.eventDate, this.state.eventPrefecture);
+              this.props.sendInfo( this.state.eventPrefecture, this.state.eventDate,);
             }}
             color="primary"
             autoFocus
