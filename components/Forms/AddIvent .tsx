@@ -6,15 +6,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextInput from './TextInput';
-import Select from 'react-select'
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 
 type State = {
   eventDate:string;
   eventPrefecture:string;
-  value_spot:string;
-  value_schedule:string;
+  //value_spot:string;
+  //value_schedule:string;
 };
 
 type Props = {
@@ -22,8 +21,8 @@ type Props = {
   handleClickClose: () => void;
   handleClickOk: (viewWear: string, viewHot: string) => void;
   sendInfo: (value_spot:string, value_schedule:string) => void;
-  value_spot: string;
-  value_schedule: string;
+  //value_spot: string;
+  //value_schedule: string;
 };
 
 const currencies = [
@@ -38,19 +37,15 @@ export default class AddIvent extends React.Component<Props, State> {
   state = {
     eventDate:"2021/08/18",
     eventPrefecture:"東京都",
-    value_spot:this.props.value_spot,
-    value_schedule:this.props.value_schedule
+    //value_spot:this.props.value_spot,
+    //value_schedule:this.props.value_schedule
   };
 
   inputDate=(event: React.ChangeEvent<HTMLInputElement>)=>{
+    //console.log(event.target.value);
     this.setState({eventDate:event.target.value});
-    console.log(event.currentTarget.value);
-    console.log(this.state.eventDate);
-}
-
-  inputPrefecture=(event: React.MouseEvent<HTMLButtonElement>)=>{
-    this.setState({eventPrefecture:event.target.value});
-    console.log(this.state.eventPrefecture);
+    //console.log(event.target.value);
+    //console.log(this.state.eventDate);
 }
 
   render() {
@@ -75,11 +70,13 @@ export default class AddIvent extends React.Component<Props, State> {
                 select
                 label="都道府県選択"
                 value={this.state.eventPrefecture}
-                onChange={(event)=>this.setState({eventPrefecture:event.currentTarget.value})}
+                onChange={(event) =>
+                  this.setState({ eventPrefecture: event.target.value })
+                }
                 helperText="Please select prefecture"
             >
               {currencies.map(option => (
-                <MenuItem key={option.value} value={option.value}>
+                <MenuItem key={option.label} value={option.label}>
                   {option.label}
                 </MenuItem>
               ))}
@@ -93,7 +90,8 @@ export default class AddIvent extends React.Component<Props, State> {
           </Button>
           <Button
             onClick={() => {
-              this.props.handleClickOk(this.state.value_spot, this.state.value_schedule);
+              //this.props.handleClickOk(this.state.value_spot, this.state.value_schedule);
+              this.props.sendInfo(this.state.eventDate, this.state.eventPrefecture);
             }}
             color="primary"
             autoFocus

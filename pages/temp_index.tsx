@@ -86,7 +86,9 @@ const Home: FC = () => {
   const [value_spot, setValue_spot] = useState('新潟');
   const [value_schedule, setValue_schedule] = useState('');
 
-  const send=(value_spot:string, value_schedule:string)=>{
+  const sendInfo=(value_spot:string, value_schedule:string)=>{
+    console.log(value_spot);
+    console.log(value_schedule);
     if (currentUser) {
       console.log(currentUser);
       firestore
@@ -114,8 +116,8 @@ const Home: FC = () => {
   };
 
   const handleClickOk = (viewWear: string, viewHot: string) => {
-    setValue_spot(viewWear);
-    setValue_schedule(viewHot);
+    //setValue_spot(viewWear);
+    //setValue_schedule(viewHot);
     setAddOpen(false);
   };
 
@@ -128,7 +130,7 @@ const Home: FC = () => {
         handleClickOk={handleClickOk}
         value_spot={value_spot}
         value_schedule={value_schedule}
-        send={send}
+        sendInfo={sendInfo}
       />
       <div className={utilStyles.wear}>
         <button onClick={handleClickOpen}>日程を追加</button>
