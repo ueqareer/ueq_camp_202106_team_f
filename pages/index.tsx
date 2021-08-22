@@ -7,9 +7,6 @@ import Weather from '@/components/Weather';
 
 import utilStyles from '@/styles/utils.module.css';
 
-import firebase from 'firebase/app';
-import { firestore } from 'utils/firebase';
-
 export interface Weather {
   id: number;
   main: string;
@@ -227,53 +224,6 @@ export default function Index() {
 
   if (!currentWeather) return null;
 
-  let userCollectionSize = 10;
-
-  const userID = new Array(userCollectionSize);
-
-  function getUserID() {
-    firestore
-      .collection('users')
-      .get()
-      .then((snapshot) => {
-        userCollectionSize = snapshot.size;
-        console.log(userCollectionSize);
-      });
-
-    firestore
-      .collection('users')
-      .get()
-      .then((snapshot) => {
-        snapshot.forEach((doc) => {
-          let i = 0;
-          userID[i] = doc.id;
-          console.log('userID', userID[i], typeof userID[i]);
-          i++;
-        });
-        for (let i = 0; i < userCollectionSize; i++) {
-          console.log('userID', userID[i], typeof userID[i]);
-          return userID[i];
-        }
-      });
-    for (let i = 0; i < userCollectionSize; i++) {
-      console.log('userID', userID[i], typeof userID[i]);
-    }
-    console.log('in firestore func');
-    // for (let i = 0; i < userCollectionSize; i++) {
-    //   userID[i] = firestore.collection('users').get();
-    // }
-    for (let i = 0; i < userCollectionSize; i++) {
-      console.log('userID', userID[i], typeof userID[i]);
-    }
-    console.log('out of firestore func');
-  }
-
-  function readUserID() {
-    for (let i = 0; i < userCollectionSize; i++) {
-      console.log('userID', userID[i], typeof userID[i]);
-    }
-  }
-
   return (
     <Layout home>
       <div className={utilStyles.header}>
@@ -353,10 +303,6 @@ export default function Index() {
         <div className={utilStyles.footerList}>
           <ul>
             <li>お問い合わせ</li>
-            <button onClick={getUserID}>
-              get all users data from firebase
-            </button>
-            <button onClick={readUserID}>check users data in console</button>
           </ul>
         </div>
       </div>

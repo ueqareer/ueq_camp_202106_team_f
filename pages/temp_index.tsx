@@ -11,6 +11,7 @@ type RegisterdData = {
   spot: string;
   weather: string;
   schedule: Date;
+  doc_id: string;
 };
 
 const Home: FC = () => {
@@ -61,6 +62,7 @@ const Home: FC = () => {
               ...doc.data(),
               date: doc.data().date.toDate(),
               schedule: doc.data().schedule.toDate(),
+              doc_id: doc.id,
             } as RegisterdData;
             // setPositionData(data);
             // console.log('Document data', data);

@@ -1,28 +1,23 @@
 import React, { useEffect, useState, FC } from 'react';
 import firebase from 'firebase/app';
 import { firestore } from 'utils/firebase';
+import { getTime } from 'date-fns';
 
 const backEnd = () => {
-  const [currentUser, setCurrentUser] = useState<null | object>(null);
-
-  let userCollectionSize;
-
-  console.log('before getUserNumber', userCollectionSize);
-
   const backMain = async () => {
     const userNumber = await firestore
       .collection('users')
       .get()
       .then((snapshot) => {
-        userCollectionSize = snapshot.size;
-        console.log(userCollectionSize);
-        return userCollectionSize;
+        return snapshot.size;
       });
     console.log(userNumber);
 
+    //userDocument内にはそれぞれのユーザーごとの追加時間とID(screen_name)が入っている
     const userDocument: firebase.firestore.DocumentData[] = [];
-    const userID = [];
+    const userID: string[] = [];
 
+    //userID array have individual user document ID
     await firestore
       .collection('users')
       .get()
@@ -31,67 +26,99 @@ const backEnd = () => {
           userDocument.push(doc.data());
         });
       });
+    console.log(userDocument);
     for (let i = 0; i < userNumber; i++) {
+      //userDocument内のscreen_nameをuserIDへと代入
       userID[i] = userDocument[i].screen_name;
       console.log(userID[i], 'i = ', i);
     }
 
-    const notifyDocument: firebase.firestore.DocumentData[] = [];
-    const getNotify = await firestore
-      .collection('users')
-      .doc(userID[0])
-      .collection('notification_data')
-      .get()
-      .then((snapshot) => {
-        snapshot.forEach((doc) => {
-          notifyDocument.push(doc.data());
-          console.log(doc.data());
+    const eachUserDocNum: number[] = [];
+
+    //get each user's notification_data number
+    for (let i = 0; i < userNumber; i++) {
+      await firestore
+        .collection('users')
+        .doc(userID[i])
+        .collection('notification_data')
+        .get()
+        .then((snapshot) => {
+          eachUserDocNum[i] = snapshot.size;
         });
-      });
-    for (let i = 0; i < 4; i++) {
-      console.log(userID[0], notifyDocument[i]);
+      console.log(
+        userID[i],
+        eachUserDocNum[i],
+        typeof userID[i],
+        typeof eachUserDocNum[i]
+      );
+    }
+    console.log(eachUserDocNum);
+
+    const notifyDocument: firebase.firestore.DocumentData[] = [];
+    //notifyDocumentを二次元配列にするための初期化
+    for (let i = 0; i < userNumber; i++) {
+      notifyDocument[i] = [];
+    }
+
+    let temp_notifyDocument: firebase.firestore.DocumentData[] = [];
+    //notifyDocumentにuserID[]をもとに、それぞれのユーザーの予定データを格納、doc_idはデータを削除する時に必要
+    for (let i = 0; i < userNumber; i++) {
+      await firestore
+        .collection('users')
+        .doc(userID[i])
+        .collection('notification_data')
+        .get()
+        .then((snapshot) => {
+          snapshot.forEach((doc) => {
+            const data = doc.data();
+            temp_notifyDocument.push({
+              date: data.date,
+              notified: data.notified,
+              schedule: data.schedule,
+              spot: data.spot,
+              weather: data.weather,
+              doc_id: doc.id,
+            });
+            // temp_notifyDOcument_id.push(doc.id);
+          });
+          console.log(temp_notifyDocument);
+          // console.log(temp_notifyDOcument_id);
+          for (let j = 0; j < eachUserDocNum[i]; j++) {
+            notifyDocument[i][j] = temp_notifyDocument[j];
+            // notifyDocument[i][j].push(temp_notifyDOcument_id[j]);
+          }
+          //再初期化
+          temp_notifyDocument = [];
+          // temp_notifyDOcument_id = [];
+        });
+    }
+
+    console.log(notifyDocument);
+
+    //check notifyDoc in console
+    for (let i = 0; i < userNumber; i++) {
+      for (let j = 0; j < eachUserDocNum[i]; j++) {
+        console.log(userID[i], notifyDocument[i][j].date); //toDateすることで数字を日付へと変更している
+      }
+    }
+
+    //ここまででnotifyDocument[i][j]のiとjを指定することでユーザーごとの登録データを取得できる
+    //notifyDocument[0][0]はユーザー0の一つ目の予定データが取れる
+
+    const today = new Date();
+    console.log('today = ', today, today.getTime());
+    for (let i = 0; i < userNumber; i++) {
+      for (let j = 0; j < eachUserDocNum[i]; j++) {
+        const diff =
+          (notifyDocument[i][j].date.toMillis() - today.getTime()) / 86400000;
+        console.log(diff, notifyDocument[i][j].date.toDate());
+      }
     }
   };
 
-  console.log(backMain());
-
-  const test_userCollectionSize = firestore
-    .collection('users')
-    .get()
-    .then()
-    .then((snapshot) => {
-      console.log(snapshot.size);
-      return snapshot.size;
-    });
-
-  console.log(test_userCollectionSize);
-
-  const getUsers = firestore
-    .collection('users')
-    .get()
-    .then((snapshot) => {
-      const data = snapshot.docs.map((doc) => {
-        return doc.data();
-      });
-      console.log(data);
-    });
+  backMain();
 
   return null;
 };
 
-// const backgroundMain = () => {
-//   // const userCollectionSize = firestore
-//   //   .collection('users')
-//   //   .get()
-//   //   .then((snapshot) => {
-//   //     snapshot.size;
-//   //   });
-//   // console.log(userCollectionSize);
-//   console.log('hello world');
-//   return;
-// };
-
 export default backEnd;
-function getUserNumber(): any {
-  throw new Error('Function not implemented.');
-}
