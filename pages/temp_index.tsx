@@ -72,7 +72,33 @@ const Home: FC = () => {
     }
   }
 
-  console.log(regiData);
+  const [docNumber, setDocNumber] = useState(0);
+
+  const docNumber_func = async () => {
+    await firestore
+      .collection('users')
+      .doc(currentUser?.uid)
+      .collection('notification_data')
+      .get()
+      .then((snapshot) => {
+        setDocNumber(snapshot.size);
+        console.log(docNumber);
+        return docNumber;
+      });
+  };
+
+  console.log(docNumber_func());
+
+  useEffect(() => {
+    docNumber_func();
+  }, []);
+
+  if (regiData) {
+    for (let i = 0; i < docNumber; i++) {
+      console.log(regiData[i].spot);
+      console.log(regiData[i].schedule);
+    }
+  }
 
   const logOut = async () => {
     try {
