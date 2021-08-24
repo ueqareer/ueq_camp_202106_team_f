@@ -1,10 +1,13 @@
 import React, { useEffect, useState, FC } from 'react';
 import firebase from 'firebase/app';
 import { firestore } from 'utils/firebase';
-import { getTime } from 'date-fns';
+import { prefectures } from '@/components/japan';
 
 const backEnd = () => {
   const backMain = async () => {
+    //最初に日付データを取っておく
+    const today = new Date();
+
     const userNumber = await firestore
       .collection('users')
       .get()
@@ -105,13 +108,24 @@ const backEnd = () => {
     //ここまででnotifyDocument[i][j]のiとjを指定することでユーザーごとの登録データを取得できる
     //notifyDocument[0][0]はユーザー0の一つ目の予定データが取れる
 
-    const today = new Date();
+    async function getWeatherData(spot: string) {
+      const pref = prefectures.find((x) => x.pref == spot);
+      const lat = pref?.lat;
+      const lon = pref?.lon;
+      console.log(lat);
+      const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=40ce155d4d54e1376534f0dee7ea34f7`;
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data.daily[3].weather[0]);
+    }
+
     console.log('today = ', today, today.getTime());
     for (let i = 0; i < userNumber; i++) {
       for (let j = 0; j < eachUserDocNum[i]; j++) {
         const diff =
           (notifyDocument[i][j].date.toMillis() - today.getTime()) / 86400000;
-        console.log(diff, notifyDocument[i][j].date.toDate());
+        console.log(diff, notifyDocument[i][j].spot);
+        getWeatherData(notifyDocument[i][j].spot);
       }
     }
   };
