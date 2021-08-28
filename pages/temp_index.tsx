@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 import firebase from 'firebase/app';
 import { auth, firestore } from 'utils/firebase';
 import { /*AuthProvider, */ AuthContext } from '@/auth/AuthProvider';
-import AddIvent from '@/components/Forms/AddIvent '
+import AddIvent from '@/components/Forms/AddIvent ';
 import utilStyles from '@/styles/utils.module.css';
-import AddIcon from "@material-ui/icons/Add";
-import Button from "@material-ui/core/Button";
+import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
 import { blue } from '@material-ui/core/colors';
 //import { func } from 'prop-types';
 
@@ -114,8 +114,7 @@ const Home: FC = () => {
     }
   };
 
-
-  const sendInfo=(value_spot:string, value_schedule:string)=>{
+  const sendInfo = (value_spot: string, value_schedule: string) => {
     console.log(value_spot);
     console.log(value_schedule);
     if (currentUser) {
@@ -133,9 +132,9 @@ const Home: FC = () => {
         });
     }
     setAddOpen(false);
-  }
+  };
 
-   const [addOpen, setAddOpen] = useState(false);
+  const [addOpen, setAddOpen] = useState(false);
 
   const handleClickOpen = () => {
     setAddOpen(true);
@@ -157,22 +156,25 @@ const Home: FC = () => {
       />
       <div className={utilStyles.wear}>
         <Button
-        style={{
-          borderRadius: 50,
-          minWidth: 50,
-          width: 50,
-          height: 50,
-          position: "fixed",
-          /*
+          style={{
+            borderRadius: 50,
+            minWidth: 50,
+            width: 50,
+            height: 50,
+            position: 'fixed',
+            /*
           bottom: 70,
           right: 30,
           */
-        }}
-        className="z-depth-1 p-2 d-flex justify-content-center align-items-center"
-        onClick={handleClickOpen}
-      >
-        <AddIcon style={{ fontSize: 28 ,color: blue[500] }} className="text-primary" />
-      </Button>
+          }}
+          className="z-depth-1 p-2 d-flex justify-content-center align-items-center"
+          onClick={handleClickOpen}
+        >
+          <AddIcon
+            style={{ fontSize: 28, color: blue[500] }}
+            className="text-primary"
+          />
+        </Button>
       </div>
       <button onClick={getTest}>GetTest</button>
       <button onClick={sendTest}>SendTest</button>

@@ -18,7 +18,14 @@ type State = {
 type Props = {
   open: boolean;
   handleClose: () => void;
-  handleOk: (viewWear: boolean, viewHot: boolean, viewFeel:boolean, viewRay: boolean, viewSleep: boolean, viewUmbrella: boolean) => void;
+  handleOk: (
+    viewWear: boolean,
+    viewHot: boolean,
+    viewFeel: boolean,
+    viewRay: boolean,
+    viewSleep: boolean,
+    viewUmbrella: boolean
+  ) => void;
   viewWear: boolean;
   viewHot: boolean;
   viewFeel: boolean;
@@ -34,7 +41,7 @@ export default class FormDialog extends React.Component<Props, State> {
     viewFeel: this.props.viewFeel,
     viewRay: this.props.viewRay,
     viewSleep: this.props.viewSleep,
-    viewUmbrella: this.props.viewUmbrella
+    viewUmbrella: this.props.viewUmbrella,
   };
 
   render() {
@@ -98,7 +105,9 @@ export default class FormDialog extends React.Component<Props, State> {
                   }
                 />
                 紫外線指数
-                <div>※UVインデックスを５段階に分類しています。紫外線対策の実施にお役立てください。</div>
+                <div>
+                  ※UVインデックスを５段階に分類しています。紫外線対策の実施にお役立てください。
+                </div>
               </label>
             </div>
             <div>
@@ -112,7 +121,9 @@ export default class FormDialog extends React.Component<Props, State> {
                   }
                 />
                 睡眠指数
-                <div>※夜間の体感気温から眠りにくさを表しています。睡眠の環境づくりにお役立てください。</div>
+                <div>
+                  ※夜間の体感気温から眠りにくさを表しています。睡眠の環境づくりにお役立てください。
+                </div>
               </label>
             </div>
             <div>
@@ -126,7 +137,9 @@ export default class FormDialog extends React.Component<Props, State> {
                   }
                 />
                 傘指数
-                <div>※直近12時間の降水確率から外出時の傘の必要性を表しています。</div>
+                <div>
+                  ※直近12時間の降水確率から外出時の傘の必要性を表しています。
+                </div>
               </label>
             </div>
           </DialogContentText>
@@ -137,7 +150,14 @@ export default class FormDialog extends React.Component<Props, State> {
           </Button>
           <Button
             onClick={() => {
-              this.props.handleOk(this.state.viewWear, this.state.viewHot, this.state.viewFeel, this.state.viewRay, this.state.viewSleep, this.state.viewUmbrella);
+              this.props.handleOk(
+                this.state.viewWear,
+                this.state.viewHot,
+                this.state.viewFeel,
+                this.state.viewRay,
+                this.state.viewSleep,
+                this.state.viewUmbrella
+              );
             }}
             color="primary"
             autoFocus
