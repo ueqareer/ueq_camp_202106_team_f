@@ -256,36 +256,19 @@ export default function Index() {
     
 
     <Layout home>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>
       <div className={utilStyles.header}>
-        <div className={utilStyles.headerLogo}>Weather</div>
+        <div className={utilStyles.headerLogo}>Weather notify</div>
         <div className={utilStyles.headerList}>
 
-               <LoginForm
-               openl={openl}
-        handleClosel={handleClosel}
-              />             
-          <div>
-        <button onClick={handleClickOpenl}>ログイン</button>
-      </div>
-      
-      
-              <SignupForm
-               opens={opens}
-        handleCloses={handleCloses}
-              />             
-          <div>
-        <button onClick={handleClickOpens}>新規登録</button>
-      </div>
+              
 
         </div>
       </div>
 
       <div className={utilStyles.main}>
         <div className={utilStyles.container1}>
-          <h1>
-            Weather<span>.</span>
-          </h1>
-          <h2>毎日時の天気予報</h2>
+          <h1>毎日時の天気予報</h1>
         </div>
       </div>
 
@@ -299,7 +282,7 @@ export default function Index() {
         />
       </div>
 
-      <FormDialog
+      {/* <FormDialog
         open={open}
         handleClose={handleClose}
         handleOk={handleOk}
@@ -339,16 +322,33 @@ export default function Index() {
             </li>
           ))}
         </div>
-      )}
+      )} */}
 
-      <div className={utilStyles.footer}>
-        <div className={utilStyles.footerLogo}>WeatherAPI</div>
-        <div className={utilStyles.footerList}>
-          <ul>
-            <li>適当</li>
-            <li>お問い合わせ</li>
-            <li>わああああ</li>
-          </ul>
+      {/* <div className={utilStyles.footer}>
+        <div className={utilStyles.footerLogo}>登録</div>
+        <div className={utilStyles.footerList}> */}
+<div className= "card text-white bg-info w-50">
+      
+ <div className="card-footer">
+    追加機能が！！
+  </div>
+  <div className="card-body">
+    <p className="card-text">新規登録してログインすることで予定の登録や様々な天気に関する情報を見ることができます</p>
+            <SignupForm
+               opens={opens}
+        handleCloses={handleCloses}
+              />             
+          <div>
+        <p><button className="btn btn-primary" onClick={handleClickOpens}>新規登録</button></p>
+      </div>
+
+        <LoginForm
+               openl={openl}
+        handleClosel={handleClosel}
+              />             
+          <div>
+        <p><button className="btn btn-primary" onClick={handleClickOpenl}>ログイン</button></p>
+      </div>      
         </div>
       </div>
     </Layout>
