@@ -142,34 +142,6 @@ export default async function handler(
   }
 
   //メール送信関数
-  function sendMail(
-    smtpData: {
-      host: string;
-      port: string;
-      secure: boolean;
-      auth: { user: string; pass: string | undefined };
-    },
-    mailData: {
-      from: string;
-      to: string;
-      subject: string;
-      text: string;
-      html: string;
-    }
-  ) {
-    const transporter = nodemailer.createTransport(smtpData);
-
-    transporter.sendMail(
-      mailData,
-      function (error, info: { response: string }) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent:' + info.response, mailData);
-        }
-      }
-    );
-  }
 
   //送信のためのデータなどを取得するためのメイン関数
   function sendMain(
@@ -181,7 +153,7 @@ export default async function handler(
   ) {
     const smtpData = {
       host: 'smtp.gmail.com',
-      port: '465',
+      port: 465,
       secure: true,
       auth: {
         user: 'ueq2021teamf@gmail.com',
@@ -195,7 +167,18 @@ export default async function handler(
       text: day + '日後、' + date + 'の' + spot + 'の天気予報は' + weather,
       html: day + '日後、' + date + 'の' + spot + 'の天気予報は' + weather,
     };
-    sendMail(smtpData, mailData);
+    const transporter = nodemailer.createTransport(smtpData);
+
+    transporter.sendMail(
+      mailData,
+      function (error, info: { response: string }) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent:' + info.response, mailData);
+        }
+      }
+    );
   }
 
   //天気データ取得
