@@ -5,6 +5,9 @@ import { auth, firestore } from 'utils/firebase';
 import { /*AuthProvider, */ AuthContext } from '@/auth/AuthProvider';
 import AddIvent from '@/components/Forms/AddIvent '
 import utilStyles from '@/styles/utils.module.css';
+import AddIcon from "@material-ui/icons/Add";
+import Button from "@material-ui/core/Button";
+import { blue } from '@material-ui/core/colors';
 //import { func } from 'prop-types';
 
 type RegisterdData = {
@@ -115,7 +118,7 @@ const Home: FC = () => {
   };
 
   return (
-    <div>
+    <div className={utilStyles.container}>
       {/*<pre>{currentUser && JSON.stringify(currentUser, null, 4)}</pre>*/}
       <AddIvent
         addOpen={addOpen}
@@ -125,7 +128,23 @@ const Home: FC = () => {
         sendInfo={sendInfo}
       />
       <div className={utilStyles.wear}>
-        <button onClick={handleClickOpen}>日程を追加</button>
+        <Button
+        style={{
+          borderRadius: 50,
+          minWidth: 50,
+          width: 50,
+          height: 50,
+          position: "fixed",
+          /*
+          bottom: 70,
+          right: 30,
+          */
+        }}
+        className="z-depth-1 p-2 d-flex justify-content-center align-items-center"
+        onClick={handleClickOpen}
+      >
+        <AddIcon style={{ fontSize: 28 ,color: blue[500] }} className="text-primary" />
+      </Button>
       </div>
       <button onClick={getTest}>GetTest</button>
       <button onClick={sendTest}>SendTest</button>
