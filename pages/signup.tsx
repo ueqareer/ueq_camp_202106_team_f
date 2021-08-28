@@ -15,7 +15,7 @@ const SignUp: FC = () => {
     });
   }, []);
 
-  const createUser = async (e) => {
+  const createUser = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     try {
       await auth.createUserWithEmailAndPassword(email, password);
