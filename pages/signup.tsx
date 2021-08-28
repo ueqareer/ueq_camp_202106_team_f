@@ -1,8 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import firebase from 'firebase/app';
-import { auth, firestore } from 'utils/firebase';
+import { auth } from 'utils/firebase';
 
 const SignUp: FC = () => {
   const router = useRouter();
@@ -15,7 +14,7 @@ const SignUp: FC = () => {
     });
   }, []);
 
-  const createUser = async (e: { preventDefault: () => void; }) => {
+  const createUser = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       await auth.createUserWithEmailAndPassword(email, password);

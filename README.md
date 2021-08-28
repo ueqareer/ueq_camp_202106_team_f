@@ -7,3 +7,4 @@
 * ESlint
 * Prettier
 * VScode Extentions
+* Firebase
