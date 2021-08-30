@@ -97,8 +97,7 @@ export default class FormDialog extends React.Component<Props, State> {
                     this.setState({ viewRay: !this.state.viewRay })
                   }
                 />
-                紫外線指数
-                <div>※UVインデックスを５段階に分類しています。紫外線対策の実施にお役立てください。</div>
+                紫外線指数　※1
               </label>
             </div>
             <div>
@@ -111,8 +110,7 @@ export default class FormDialog extends React.Component<Props, State> {
                     this.setState({ viewSleep: !this.state.viewSleep })
                   }
                 />
-                睡眠指数
-                <div>※夜間の体感気温から眠りにくさを表しています。睡眠の環境づくりにお役立てください。</div>
+                睡眠指数　※2
               </label>
             </div>
             <div>
@@ -125,8 +123,11 @@ export default class FormDialog extends React.Component<Props, State> {
                     this.setState({ viewUmbrella: !this.state.viewUmbrella })
                   }
                 />
-                傘指数
-                <div>※直近12時間の降水確率から外出時の傘の必要性を表しています。</div>
+                傘指数　※3
+                <br/>
+                <div>※1  UVインデックスを５段階に分類しています。紫外線対策の実施にお役立てください。</div>
+                <div>※2  夜間の体感気温から眠りにくさを表しています。睡眠の環境づくりにお役立てください。</div>
+                <div>※3  直近12時間の降水確率から外出時の傘の必要性を表しています。</div>
               </label>
             </div>
           </DialogContentText>

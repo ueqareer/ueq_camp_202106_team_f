@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext, useDebugValue} from 'react';
 
-import LoginFormDialog from '@/components/Forms/LoginFormDialog';
+import FormDialog from '@/components/Forms/FormDialog';
 import Layout from '@/components/Layout';
 import JapanMap from '@/components/JapanMap';
 import Weather from '@/components/Weather';
@@ -12,6 +12,7 @@ import firebase from 'firebase/app';
 import { auth, firestore } from 'utils/firebase';
 import { /*AuthProvider, */ AuthContext } from '@/auth/AuthProvider';
 import AddIvent from '@/components/Forms/AddIvent '
+import dayjs from 'dayjs';
 
 
 export interface Weather {
@@ -362,31 +363,6 @@ export default function Index() {
     console.log(data);
   };
 
-  const value_test_notified = false;
-  const value_test_spot = '新潟';
-  const value_test_weather = 'cloudy';
-  const value_test_schedule = 'August 22, 2021';
-/*
-  function sendTest() {
-    if (currentUser) {
-      console.log(currentUser);
-      firestore
-        .collection('users')
-        .doc(currentUser.uid)
-        .collection('notification_data')
-        .add({
-          date: firebase.firestore.FieldValue.serverTimestamp(),
-          notified: value_test_notified,
-          spot: value_test_spot,
-          weather: value_test_weather,
-          schedule: firebase.firestore.Timestamp.fromDate(
-            new Date(value_test_schedule)
-          ),
-        });
-    }
-  }
-*/
-
   const logOut = async () => {
     try {
       await auth.signOut();
@@ -396,12 +372,13 @@ export default function Index() {
     }
   };
 
-  const sendInfo=(value_spot:string, value_schedule:string)=>{
+  const sendInfo=async(value_spot:string, value_schedule:string)=>{
+    console.log("関数1スタート")
     console.log(value_spot);
     console.log(value_schedule);
     if (currentUser) {
       console.log(currentUser);
-      firestore
+      await firestore
         .collection('users')
         .doc(currentUser.uid)
         .collection('notification_data')
@@ -414,6 +391,8 @@ export default function Index() {
         });
     }
     setAddOpen(false);
+    console.log("関数１終わり")
+    return 0
   }
 
   const [addOpen, setAddOpen] = useState(false);
@@ -425,33 +404,11 @@ export default function Index() {
   const handleClickClose = () => {
     setAddOpen(false);
   };
-/*
-  function getTest() {
-    if (currentUser) {
-      console.log(currentUser);
-      firestore
-        .collection('users')
-        .doc(currentUser.uid)
-        .collection('notification_data')
-        .get()
-        .then((snapshot) => {
-          const data = snapshot.docs.map((doc) => {
-            return {
-              ...doc.data(),
-              date: doc.data().date.toDate(),
-              schedule: doc.data().schedule.toDate(),
-            } as RegisterdData;
-            // setPositionData(data);
-            // console.log('Document data', data);
-          });
-          setRegiData(data);
-        });
-    }
-  }
-*/
-  const [docNumber, setDocNumber] = useState(0);
 
+
+  const [docNumber, setDocNumber] = useState(0);
   const docNumber_func = async () => {
+    console.log("関数２スタート")
     if (currentUser) {
     await firestore
       .collection('users')
@@ -471,21 +428,20 @@ export default function Index() {
         setRegiData(data);
       });
     }
+    console.log("関数２終わり")
   };
+
+  const logIventDate = async(value_spot:string, value_schedule:string)=>{
+    await sendInfo(value_spot, value_schedule)
+      .then(()=>{
+        docNumber_func();
+      });
+  }
 
   useEffect(() => {
     docNumber_func();
     console.log(docNumber);
-  },[docNumber]);
-/*
-  if (regiData) {
-    for (let i = 0; i < docNumber; i++) {
-      console.log(regiData[i].spot);
-      console.log(regiData[i].schedule);
-    }
-  }
-*/
-
+  }, []);
 
 
   const [currentWeather, setCurrentWeather] = useState<Current>();
@@ -493,7 +449,6 @@ export default function Index() {
   const [hourlyWeather, setHourlyWeather] = useState<Hourly[]>([]);
 
   useEffect(() => {
-    //getPlace(id:string);
     getData();
   }, [lat, lon]); //どっちか片方しか必要ないかも？
 
@@ -538,11 +493,10 @@ export default function Index() {
     追加項目
   </div>
   <div className="card-body">
-      <LoginFormDialog
+      <FormDialog
         open={open}
         handleClose={handleClose}
         handleOk={handleOk}
-        docNumber_func={docNumber_func}
         viewWear={viewWear}
         viewHot={viewHot}
         viewFeel={viewFeel}
@@ -630,13 +584,13 @@ export default function Index() {
       <AddIvent
         addOpen={addOpen}
         handleClickClose={handleClickClose}
-        sendInfo={sendInfo}
+        logIventDate={logIventDate}
       />
       <div className={utilStyles.wear}>
         <button className="btn btn-primary" onClick={handleClickOpena}>日程を追加</button>
         <ul>
         { regiData?.map((value) => 
-        <li>{value.spot}</li>
+        <li>{value.spot}        -{dayjs(value.schedule).format('YYYY/MM/DD')}</li>
        )}
       </ul>
       </div> 
