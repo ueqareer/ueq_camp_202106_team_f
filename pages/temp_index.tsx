@@ -346,6 +346,10 @@ export default function Index() {
             handleOk={handleOk}
             viewWear={viewWear}
             viewHot={viewHot}
+            viewRay
+            viewFeel
+            viewSleep
+            viewUmbrella
           />
 
           <div className={utilStyles.wear}>
