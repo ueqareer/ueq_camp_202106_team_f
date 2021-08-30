@@ -20,6 +20,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  console.log(req.query);
+
   //最初に日付データを取っておく
   const today = new Date();
 
@@ -144,7 +146,7 @@ export default async function handler(
   //メール送信関数
 
   //送信のためのデータなどを取得するためのメイン関数
-  function sendMain(
+  async function sendMain(
     mailaddress: string,
     day: number,
     weather: string,
@@ -201,7 +203,7 @@ export default async function handler(
       console.log(diff, notifyDocument[i][j].spot);
       if (diff <= 3 && diff > 2) {
         getWeatherData(notifyDocument[i][j].spot, 3);
-        sendMain(
+        await sendMain(
           userDocument[i].email,
           3,
           await getWeatherData(notifyDocument[i][j].spot, 3),
@@ -210,7 +212,7 @@ export default async function handler(
         );
       } else if (diff <= 2 && diff > 1) {
         getWeatherData(notifyDocument[i][j].spot, 2);
-        sendMain(
+        await sendMain(
           userDocument[i].email,
           2,
           await getWeatherData(notifyDocument[i][j].spot, 2),
@@ -219,7 +221,7 @@ export default async function handler(
         );
       } else if (diff <= 1 && diff > 0) {
         getWeatherData(notifyDocument[i][j].spot, 1);
-        sendMain(
+        await sendMain(
           userDocument[i].email,
           1,
           await getWeatherData(notifyDocument[i][j].spot, 1),

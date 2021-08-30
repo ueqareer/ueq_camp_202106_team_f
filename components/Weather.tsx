@@ -86,7 +86,7 @@ const Weather: React.FC<Props> = ({
             <span id="cminem">{Math.round(dailyWeather[0]?.temp.min)}°</span>
           </div>
           <div className={utilStyles.rainyPercent}>
-            降水 {hourlyWeather[0]?.pop * 100}%
+            降水 {Math.round(hourlyWeather[0]?.pop * 100)}%
           </div>
         </div>
       </div>
