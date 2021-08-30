@@ -31,6 +31,4 @@ yarn-error.log*
 
 .env
 
-.credentials.json
-
 .vercel
