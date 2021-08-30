@@ -25,7 +25,7 @@ const LoginForm = (props: { openl: boolean; handleClosel: () => void }) => {
         if (!userDoc.exists) {
           await userDoc.ref.set({
             screen_name: user.uid,
-            display_name: 'test',
+            email: user.email,
             created_at: firebase.firestore.FieldValue.serverTimestamp(),
           });
         }

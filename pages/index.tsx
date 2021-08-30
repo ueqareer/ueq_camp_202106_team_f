@@ -8,7 +8,6 @@ import Weather from '@/components/Weather';
 
 import utilStyles from '@/styles/utils.module.css';
 import SignupForm from '@/components/Forms/SignupForm';
-import Button from '@material-ui/core/Button';
 
 export interface Weather {
   id: number;
@@ -133,185 +132,27 @@ export interface Data{
 const displayWearIcon = (weartemp: Temp) => {
   if (weartemp.min >= 30) {
     return {
-      iconlabel: './wear/wear5.png',
+      iconlabel: 'wear5.png',
     };
   }
   if (22.5 <= weartemp.min && weartemp.min < 30) {
     return {
-      iconlabel: './wear/wear4.png',
+      iconlabel: 'wear4.png',
     };
   }
   if (15 <= weartemp.min && weartemp.min < 22.5) {
     return {
-      iconlabel: './wear/wear3.png',
+      iconlabel: 'wear3.png',
     };
   }
   if (10 <= weartemp.min && weartemp.min < 15) {
     return {
-      iconlabel: './wear/wear2.png',
+      iconlabel: 'wear2.png',
     };
   }
   if (weartemp.min < 10) {
     return {
-      iconlabel: './wear/wear1.png',
-    };
-  }
-};
-
-const displayHotIcon = (tCurrent: Current) => {
-  if (tCurrent.feels_like >= 35) {
-    return {
-      iconlabel: './hot/hot5.png',
-    };
-  }
-  if (tCurrent.feels_like >= 28 && tCurrent.feels_like < 35) {
-    return {
-      iconlabel: './hot/hot4.png',
-    };
-  }
-  if (tCurrent.feels_like >= 20 && tCurrent.feels_like < 28) {
-    return {
-      iconlabel: './hot/hot3.png',
-    };
-  }
-  if (tCurrent.feels_like >= 8 && tCurrent.feels_like < 20) {
-    return {
-      iconlabel: './hot/hot2.png',
-    };
-  }
-  if (tCurrent.feels_like < 8) {
-    return {
-      iconlabel: './hot/hot1.png',
-    };
-  }
-};
-
-const displayFeelIcon = (tCurrent: Current) => {
-  const feelnum =
-    0.81 * tCurrent.temp +
-    0.01 * tCurrent.humidity * (0.99 * tCurrent.temp - 14.3) +
-    46.3;
-  if (feelnum <= 60) {
-    return {
-      iconlabel: './feel/feel5.png',
-    };
-  }
-  if (feelnum <= 70 && feelnum > 60) {
-    return {
-      iconlabel: './feel/feel4.png',
-    };
-  }
-  if (feelnum <= 78 && feelnum > 70) {
-    return {
-      iconlabel: './feel/feel3.png',
-    };
-  }
-  if (feelnum <= 85 && feelnum > 78) {
-    return {
-      iconlabel: './feel/feel2.png',
-    };
-  }
-  if (feelnum > 85) {
-    return {
-      iconlabel: './feel/feel1.png',
-    };
-  }
-};
-
-const displaySleepIcon = (tDaily: Daily) => {
-  if (tDaily.feels_like.night >= 33 || tDaily.feels_like.night <= 0) {
-    return {
-      iconlabel: './sleep/sleep1.png',
-    };
-  }
-  if (
-    (tDaily.feels_like.night < 33 && tDaily.feels_like.night >= 30) ||
-    (tDaily.feels_like.night > 0 && tDaily.feels_like.night <= 5)
-  ) {
-    return {
-      iconlabel: './sleep/sleep2.png',
-    };
-  }
-  if (
-    (tDaily.feels_like.night < 30 && tDaily.feels_like.night >= 28) ||
-    (tDaily.feels_like.night > 5 && tDaily.feels_like.night <= 10)
-  ) {
-    return {
-      iconlabel: './sleep/sleep3.png',
-    };
-  }
-  if (
-    (tDaily.feels_like.night < 28 && tDaily.feels_like.night >= 25) ||
-    (tDaily.feels_like.night > 10 && tDaily.feels_like.night <= 15)
-  ) {
-    return {
-      iconlabel: './sleep/sleep2.png',
-    };
-  }
-  if (tDaily.feels_like.night < 25 && tDaily.feels_like.night > 15) {
-    return {
-      iconlabel: './sleep/sleep1.png',
-    };
-  }
-};
-
-const displayRayIcon = (tCurrent: Current) => {
-  if (tCurrent.uvi >= 11) {
-    return {
-      iconlabel: './ray/ray5.png',
-    };
-  }
-  if (tCurrent.uvi >= 8 && tCurrent.uvi < 11) {
-    return {
-      iconlabel: './ray/ray4.png',
-    };
-  }
-  if (tCurrent.uvi >= 6 && tCurrent.uvi < 8) {
-    return {
-      iconlabel: './ray/ray3.png',
-    };
-  }
-  if (tCurrent.uvi >= 3 && tCurrent.uvi < 6) {
-    return {
-      iconlabel: './ray/ray2.png',
-    };
-  }
-  if (tCurrent.uvi < 3) {
-    return {
-      iconlabel: './ray/ray1.png',
-    };
-  }
-};
-
-const displayUmbrellaIcon = (wDaily: Daily[]) => {
-  let dailyPop = wDaily[0].pop;
-  for (let i = 0; i < 12; i++) {
-    if (wDaily[i]?.pop > dailyPop) dailyPop = wDaily[i].pop;
-  }
-
-  if (dailyPop >= 80) {
-    return {
-      iconlabel: './umbrella/umbrella5.png',
-    };
-  }
-  if (dailyPop >= 60 && dailyPop < 80) {
-    return {
-      iconlabel: './umbrella/umbrella4.png',
-    };
-  }
-  if (dailyPop >= 30 && dailyPop < 50) {
-    return {
-      iconlabel: './umbrella/umbrella3.png',
-    };
-  }
-  if (dailyPop >= 20 && dailyPop < 30) {
-    return {
-      iconlabel: './umbrella/umbrella2.png',
-    };
-  }
-  if (dailyPop < 10) {
-    return {
-      iconlabel: './umbrella/umbrella1.png',
+      iconlabel: 'outor.png',
     };
   }
 };
@@ -329,10 +170,6 @@ export default function Index() {
   opens;
   const [viewWear, setViewWear] = useState(false);
   const [viewHot, setViewHot] = useState(false);
-  const [viewFeel, setViewFeel] = useState(false);
-  const [viewRay, setViewRay] = useState(false);
-  const [viewSleep, setviewSleep] = useState(false);
-  const [viewUmbrella, setviewUmbrella] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -358,20 +195,9 @@ export default function Index() {
     setOpens(false);
   };
 
-  const handleOk = (
-    viewWear: boolean,
-    viewHot: boolean,
-    viewFeel: boolean,
-    viewRay: boolean,
-    viewSleep: boolean,
-    viewUmbrella: boolean
-  ) => {
+  const handleOk = (viewWear: boolean, viewHot: boolean) => {
     setViewWear(viewWear);
     setViewHot(viewHot);
-    setViewFeel(viewFeel);
-    setViewRay(viewRay);
-    setviewSleep(viewSleep);
-    setviewUmbrella(viewUmbrella);
     setOpen(false);
   };
 
@@ -423,27 +249,20 @@ export default function Index() {
 
   return (
     <Layout home>
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+        crossOrigin="anonymous"
+      />
       <div className={utilStyles.header}>
-        <div className={utilStyles.headerLogo}>Weather</div>
-        <div className={utilStyles.headerList}>
-          <LoginForm openl={openl} handleClosel={handleClosel} />
-          <div>
-            <button onClick={handleClickOpenl}>ログイン</button>
-          </div>
-
-          <SignupForm opens={opens} handleCloses={handleCloses} />
-          <div>
-            <button onClick={handleClickOpens}>新規登録</button>
-          </div>
-        </div>
+        <div className={utilStyles.headerLogo}>Weather notify</div>
+        <div className={utilStyles.headerList}></div>
       </div>
 
       <div className={utilStyles.main}>
         <div className={utilStyles.container1}>
-          <h1>
-            Weather<span>.</span>
-          </h1>
-          <h2>毎日時の天気予報</h2>
+          <h1>毎日時の天気予報</h1>
         </div>
       </div>
 
@@ -457,100 +276,71 @@ export default function Index() {
         />
       </div>
 
-      <FormDialog
+      {/* <FormDialog
         open={open}
         handleClose={handleClose}
         handleOk={handleOk}
         viewWear={viewWear}
         viewHot={viewHot}
-        viewFeel={viewFeel}
-        viewRay={viewRay}
-        viewSleep={viewSleep}
-        viewUmbrella={viewUmbrella}
       />
-
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>
-        指数追加
-      </Button>
-
-      <div className={utilStyles.container}>
-        {viewWear && (
-          <div className={utilStyles.wearicon}>
-            {dailyWeather.slice(0, 1).map((x) => (
-              <li key={x.dt}>
-                <div>服装指数</div>
-                <img
-                  src={displayWearIcon(x.temp)?.iconlabel}
-                  height={60}
-                  width={60}
-                />
-              </li>
-            ))}
-          </div>
-        )}
-
-        {viewHot && (
-          <div className={utilStyles.wearicon}>
-            <div>体感温度指数</div>
-            <img
-              src={displayHotIcon(currentWeather)?.iconlabel}
-              height={60}
-              width={60}
-            />
-          </div>
-        )}
-
-        {viewFeel && (
-          <div className={utilStyles.wearicon}>
-            <div>不快度指数</div>
-            <img
-              src={displayFeelIcon(currentWeather)?.iconlabel}
-              height={60}
-              width={60}
-            />
-          </div>
-        )}
-
-        {viewRay && (
-          <div className={utilStyles.wearicon}>
-            <div>紫外線指数</div>
-            <img
-              src={displayRayIcon(currentWeather)?.iconlabel}
-              height={60}
-              width={60}
-            />
-          </div>
-        )}
-
-        {viewSleep && (
-          <div className={utilStyles.wearicon}>
-            <div>睡眠指数</div>
-            <img
-              src={displaySleepIcon(dailyWeather[0])?.iconlabel}
-              height={60}
-              width={60}
-            />
-          </div>
-        )}
-
-        {viewUmbrella && (
-          <div className={utilStyles.wearicon}>
-            <div>傘指数</div>
-            <img
-              src={displayUmbrellaIcon(dailyWeather)?.iconlabel}
-              height={60}
-              width={60}
-            />
-          </div>
-        )}
+      <div className={utilStyles.wear}>
+        <button onClick={handleClickOpen}>指数追加</button>
       </div>
+      {viewWear && (
+        <div className={utilStyles.wearicon}>
+          {dailyWeather.slice(0, 1).map((x) => (
+            <li key={x.dt}>
+              <div>服装指数</div>
+              <img
+                src={displayWearIcon(x.temp)?.iconlabel}
+                height={50}
+                width={50}
+              />
+            </li>
+          ))}
+        </div>
+      )}
+      {viewHot && (
+        <div className={utilStyles.wearicon}>
+          {dailyWeather.slice(0, 1).map((x) => (
+            <li key={x.dt}>
+              <div>熱中症指数</div>
+              <img
+                src={displayWearIcon(x.temp)?.iconlabel}
+                height={50}
+                width={50}
+              />
+            </li>
+          ))}
+        </div>
+      )} */}
 
-      <div className={utilStyles.footer}>
-        <div className={utilStyles.footerLogo}>WeatherAPI</div>
-        <div className={utilStyles.footerList}>
-          <ul>
-            <li>お問い合わせ</li>
-          </ul>
+      {/* <div className={utilStyles.footer}>
+        <div className={utilStyles.footerLogo}>登録</div>
+        <div className={utilStyles.footerList}> */}
+      <div className="card text-white bg-info w-50">
+        <div className="card-footer">追加機能が！！</div>
+        <div className="card-body">
+          <p className="card-text">
+            新規登録してログインすることで予定の登録や様々な天気に関する情報を見ることができます
+          </p>
+          <SignupForm opens={opens} handleCloses={handleCloses} />
+          <div>
+            <p>
+              <button className="btn btn-primary" onClick={handleClickOpens}>
+                新規登録
+              </button>
+            </p>
+          </div>
+
+          <LoginForm openl={openl} handleClosel={handleClosel} />
+          <div>
+            <p>
+              <button className="btn btn-primary" onClick={handleClickOpenl}>
+                ログイン
+              </button>
+            </p>
+          </div>
         </div>
       </div>
     </Layout>
