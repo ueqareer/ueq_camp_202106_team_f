@@ -407,38 +407,37 @@ export default function Index() {
     
 
     <Layout home>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossOrigin="anonymous"/>
       <div className={utilStyles.header}>
-        <div className={utilStyles.headerLogo}>Weather</div>
-        <div className={utilStyles.headerList}>
+        <div className={utilStyles.headerLogo}>Weather notify</div>
 
-               <LoginForm
-               openl={openl}
-        handleClosel={handleClosel}
-              />             
-          <div>
-        <button onClick={handleClickOpenl}>ログイン</button>
-      </div>
-      
-      
-              <SignupForm
-               opens={opens}
-        handleCloses={handleCloses}
-              />             
-          <div>
-        <button onClick={handleClickOpens}>新規登録</button>
-      </div>
+        <div className={utilStyles.logButton}>
+          <LoginForm
+            openl={openl}
+            handleClosel={handleClosel}
+          />             
 
+          <SignupForm
+            opens={opens}
+            handleCloses={handleCloses}
+          />  
+        </div>
+
+        <div className={utilStyles.logButton}>
+          <p><button className="btn btn-primary" onClick={handleClickOpenl}>Login</button></p>
+          {/*<p><button className="btn btn-primary" onClick={handleClickOpens}>新規登録</button></p>*/}
         </div>
       </div>
 
-      <div className={utilStyles.main}>
-        <div className={utilStyles.container1}>
-          <h1>
-            Weather<span>.</span>
-          </h1>
-          <h2>毎日時の天気予報</h2>
+        <div className={utilStyles.main}>
+          <div className={utilStyles.container1}>
+            <h1>
+              Weather<span>.</span>
+            </h1>
+            <h2>週間予報</h2>
+          </div>
         </div>
-      </div>
+
 
       <div className={utilStyles.container}>
         <JapanMap updateLatLon={updateLatLon} updatePref={updatePref} />
@@ -461,94 +460,118 @@ export default function Index() {
         viewSleep={viewSleep}
         viewUmbrella={viewUmbrella}
       />
-
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>
-      指数追加
-      </Button>
-
-      <div className={utilStyles.container}>
-      {viewWear && (
-        <div className={utilStyles.wearicon}>
-          {dailyWeather.slice(0, 1).map((x) => (
-            <li key={x.dt}>
-              <div>服装指数</div>
-              <img
-                src={displayWearIcon(x.temp)?.iconlabel}
-                height={60}
-                width={60}
-              />
-            </li>
-          ))}
+      <div className= "card text-black bg-transparent w-70 border-info">
+        <div className="card-footer text-light bg-info border-info">
+          指数表示
         </div>
-      )}
+  
+        <div className="card-body">
+          <p className="card-text">指数を追加してねの紹介文募集中</p>
 
-      {viewHot && (
-        <div className={utilStyles.wearicon}>
-              <div>体感温度指数</div>
-              <img
-                src={displayHotIcon(currentWeather)?.iconlabel}
-                height={60}
-                width={60}
-              />
-        </div>
-      )}
+          <button className="btn btn-primary" onClick={handleClickOpen}>指数追加</button>
+        
+          <div className={utilStyles.container}>
+          {viewWear && (
+            <div className={utilStyles.wearicon}>
+              {dailyWeather.slice(0, 1).map((x) => (
+                <li key={x.dt}>
+                  <div>服装指数</div>
+                  <img
+                    src={displayWearIcon(x.temp)?.iconlabel}
+                    height={60}
+                    width={60}
+                  />
+                </li>
+              ))}
+            </div>
+          )}
 
-      {viewFeel && (
-        <div className={utilStyles.wearicon}>
-              <div>不快度指数</div>
-              <img
-                src={displayFeelIcon(currentWeather)?.iconlabel}
-                height={60}
-                width={60}
-              />
-        </div>
-      )}
+          {viewHot && (
+            <div className={utilStyles.wearicon}>
+                  <div>体感温度指数</div>
+                  <img
+                    src={displayHotIcon(currentWeather)?.iconlabel}
+                    height={60}
+                    width={60}
+                  />
+            </div>
+          )}
 
-      {viewRay && (
-        <div className={utilStyles.wearicon}>
-              <div>紫外線指数</div>
-              <img
-                src={displayRayIcon(currentWeather)?.iconlabel}
-                height={60}
-                width={60}
-              />
-        </div>
-      )}
+          {viewFeel && (
+            <div className={utilStyles.wearicon}>
+                  <div>不快度指数</div>
+                  <img
+                    src={displayFeelIcon(currentWeather)?.iconlabel}
+                    height={60}
+                    width={60}
+                  />
+            </div>
+          )}
 
-      {viewSleep && (
-        <div className={utilStyles.wearicon}>
-              <div>睡眠指数</div>
-              <img
-                src={displaySleepIcon(dailyWeather[0])?.iconlabel}
-                height={60}
-                width={60}
-              />
-        </div>
-      )}
+          {viewRay && (
+            <div className={utilStyles.wearicon}>
+                  <div>紫外線指数</div>
+                  <img
+                    src={displayRayIcon(currentWeather)?.iconlabel}
+                    height={60}
+                    width={60}
+                  />
+            </div>
+          )}
 
-      {viewUmbrella && (
-        <div className={utilStyles.wearicon}>
-        <div>傘指数</div>
-        <img
-          src={displayUmbrellaIcon(dailyWeather)?.iconlabel}
-          height={60}
-          width={60}
-        />
-  </div>
-      )}
+          {viewSleep && (
+            <div className={utilStyles.wearicon}>
+                  <div>睡眠指数</div>
+                  <img
+                    src={displaySleepIcon(dailyWeather[0])?.iconlabel}
+                    height={60}
+                    width={60}
+                  />
+            </div>
+          )}
 
-      </div>
+          {viewUmbrella && (
+            <div className={utilStyles.wearicon}>
+            <div>傘指数</div>
+            <img
+              src={displayUmbrellaIcon(dailyWeather)?.iconlabel}
+              height={60}
+              width={60}
+            />
+            </div>
+          )}
 
-      <div className={utilStyles.footer}>
-        <div className={utilStyles.footerLogo}>WeatherAPI</div>
-        <div className={utilStyles.footerList}>
-          <ul>
-            <li>適当</li>
-            <li>お問い合わせ</li>
-            <li>わああああ</li>
-          </ul>
         </div>
       </div>
+      </div>
+
+      <div className= "card text-white bg-info w-50">
+      
+        <div className="card-footer">
+          追加機能が！！
+        </div>
+        <div className="card-body">
+          <p className="card-text">新規登録してログインすることで予定の登録や様々な天気に関する情報を見ることができます</p>
+            <SignupForm
+              opens={opens}
+              handleCloses={handleCloses}
+            />             
+          <div>
+            <p><button className="btn btn-primary" onClick={handleClickOpens}>新規登録</button></p>
+          </div>
+
+          <LoginForm
+            openl={openl}
+            handleClosel={handleClosel}
+          /> 
+
+          <div>
+            <p><button className="btn btn-primary" onClick={handleClickOpenl}>ログイン</button></p>
+          </div>      
+        </div>
+      </div>
+      
+
     </Layout>
   );
 }

@@ -143,3 +143,16 @@
   font-size: 20px;
   display: flex;
 }
+
+.buttom{
+  display: flex;
+  width: 20px;
+  height: 8px;
+}
+
+.logButton{
+  
+  margin: 25px;
+  float:right;
+  display: flex;
+}

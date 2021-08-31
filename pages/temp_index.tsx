@@ -463,10 +463,10 @@ export default function Index() {
     <Layout home>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossOrigin="anonymous"/>
       <div className={utilStyles.header}>
-        <div className={utilStyles.headerLogo}>Weather notify login</div>
-        <div className={utilStyles.headerList}>
-          <button className="btn btn-primary" onClick={logOut}>Logout</button>
-        </div>
+          <div className={utilStyles.headerLogo}>Weather notify login</div>
+          <div className={utilStyles.logButton}>
+            <button className="btn btn-primary" onClick={logOut}>Logout</button>
+          </div>
       </div>
 
       <div className={utilStyles.main}>
@@ -485,13 +485,11 @@ export default function Index() {
         />
       </div>
 
-<div className= "card text-white bg-info w-25">
-      {/* <div className={utilStyles.footer}>
-        <div className={utilStyles.footerLogo}>追加項目</div>
-        <div className={utilStyles.footerList}> */}
- <div className="card-footer">
+<div className= "card text-black bg-transparent w-70 border-info">
+ <div className="card-footer text-light bg-info border-info">
     追加項目
   </div>
+  
   <div className="card-body">
       <FormDialog
         open={open}
@@ -504,11 +502,12 @@ export default function Index() {
         viewSleep={viewSleep}
         viewUmbrella={viewUmbrella}
       />
-
+    <p className="card-text">指数を追加してねの紹介文募集中</p>
       <div className={utilStyles.wear}>
         <button className="btn btn-primary" onClick={handleClickOpen}>指数を追加</button>
       </div>
 
+      <div className={utilStyles.container}>
       {viewWear && (
         <div className={utilStyles.wearicon}>
           {dailyWeather.slice(0, 1).map((x) => (
@@ -579,8 +578,9 @@ export default function Index() {
         </div>
       )}
 
-      
+      </div>
         <div>
+        <p className="card-text">日程を追加してねの紹介文募集中</p>
       <AddIvent
         addOpen={addOpen}
         handleClickClose={handleClickClose}
@@ -588,12 +588,17 @@ export default function Index() {
       />
       <div className={utilStyles.wear}>
         <button className="btn btn-primary" onClick={handleClickOpena}>日程を追加</button>
+        <div className= "card text-black bg-transparent w-5">
+        <div className="card-footer w-5">
+          設定した日程一覧
+        </div>
         <ul>
         { regiData?.map((value) => 
         <li>{value.spot}        -{dayjs(value.schedule).format('YYYY/MM/DD')}</li>
        )}
       </ul>
       </div> 
+      </div>
 
       
 
