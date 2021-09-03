@@ -27,7 +27,7 @@ const Login: FC = () => {
     });
   }, []);
 
-  const logIn = async (e: { preventDefault: () => void; }) => {
+  const logIn = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       await auth.signInWithEmailAndPassword(email, password);

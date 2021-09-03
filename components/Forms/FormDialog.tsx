@@ -18,7 +18,14 @@ type State = {
 type Props = {
   open: boolean;
   handleClose: () => void;
-  handleOk: (viewWear: boolean, viewHot: boolean, viewFeel:boolean, viewRay: boolean, viewSleep: boolean, viewUmbrella: boolean) => void;
+  handleOk: (
+    viewWear: boolean,
+    viewHot: boolean,
+    viewFeel: boolean,
+    viewRay: boolean,
+    viewSleep: boolean,
+    viewUmbrella: boolean
+  ) => void;
   viewWear: boolean;
   viewHot: boolean;
   viewFeel: boolean;
@@ -34,7 +41,7 @@ export default class FormDialog extends React.Component<Props, State> {
     viewFeel: this.props.viewFeel,
     viewRay: this.props.viewRay,
     viewSleep: this.props.viewSleep,
-    viewUmbrella: this.props.viewUmbrella
+    viewUmbrella: this.props.viewUmbrella,
   };
 
   render() {
@@ -138,7 +145,14 @@ export default class FormDialog extends React.Component<Props, State> {
           </Button>
           <Button
             onClick={() => {
-              this.props.handleOk(this.state.viewWear, this.state.viewHot, this.state.viewFeel, this.state.viewRay, this.state.viewSleep, this.state.viewUmbrella);
+              this.props.handleOk(
+                this.state.viewWear,
+                this.state.viewHot,
+                this.state.viewFeel,
+                this.state.viewRay,
+                this.state.viewSleep,
+                this.state.viewUmbrella
+              );
             }}
             color="primary"
             autoFocus

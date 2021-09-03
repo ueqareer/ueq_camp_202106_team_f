@@ -6,6 +6,7 @@ import JapanMap from '@/components/JapanMap';
 import Weather from '@/components/Weather';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+
 import utilStyles from '@/styles/utils.module.css';
 
 import { useRouter } from 'next/router';
@@ -14,6 +15,7 @@ import { auth, firestore } from 'utils/firebase';
 import { /*AuthProvider, */ AuthContext } from '@/auth/AuthProvider';
 import AddIvent from '@/components/Forms/AddIvent '
 import dayjs from 'dayjs';
+
 
 
 export interface Weather {
@@ -310,11 +312,11 @@ const displayUmbrellaIcon = (wDaily: Daily[])=>{
   }
 }
 
+
 export default function Index() {
   const [lat, setLat] = useState(35.6518205);
   const [lon, setLon] = useState(139.5446124);
   const [pref, setPref] = useState('東京都');
-  // const [indent, setIndent] = useState('13');
   const [open, setOpen] = useState(false);open
   const [viewWear, setViewWear] = useState(false);
   const [viewHot, setViewHot] = useState(false);
@@ -323,16 +325,15 @@ export default function Index() {
   const [viewSleep, setviewSleep] = useState(false);
   const [viewUmbrella, setviewUmbrella] = useState(false);
 
+
   const { currentUser } = useContext(AuthContext);
   const router = useRouter();
   const [regiData, setRegiData] = useState<RegisterdData[]>();
 
-
   const handleClickOpen = () => {
     setOpen(true);
   };
-
-
+  
   const handleClose = () => {
     setOpen(false);
   };
@@ -364,7 +365,6 @@ export default function Index() {
     setHourlyWeather(data.hourly);
     console.log(data);
   };
-
   const logOut = async () => {
     try {
       await auth.signOut();
@@ -621,9 +621,6 @@ export default function Index() {
       </ul>
       </div> 
       </div>
-
-
-      
 
           </div>
         </div>

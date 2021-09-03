@@ -8,7 +8,6 @@ import Weather from '@/components/Weather';
 
 import utilStyles from '@/styles/utils.module.css';
 import SignupForm from '@/components/Forms/SignupForm';
-import Button from '@material-ui/core/Button';
 
 export interface Weather {
   id: number;
@@ -133,27 +132,27 @@ export interface Data{
 const displayWearIcon = (weartemp: Temp) => {
   if (weartemp.min >= 30) {
     return {
-      iconlabel: './wear/wear5.png',
+      iconlabel: 'wear5.png',
     };
   }
   if (22.5 <= weartemp.min && weartemp.min < 30) {
     return {
-      iconlabel: './wear/wear4.png',
+      iconlabel: 'wear4.png',
     };
   }
   if (15 <= weartemp.min && weartemp.min < 22.5) {
     return {
-      iconlabel: './wear/wear3.png',
+      iconlabel: 'wear3.png',
     };
   }
   if (10 <= weartemp.min && weartemp.min < 15) {
     return {
-      iconlabel: './wear/wear2.png',
+      iconlabel: 'wear2.png',
     };
   }
   if (weartemp.min < 10) {
     return {
-      iconlabel: './wear/wear1.png',
+      iconlabel: 'outor.png',
     };
   }
 };
@@ -304,21 +303,19 @@ const displayUmbrellaIcon = (wDaily: Daily[])=>{
   }
 }
 
-
 export default function Index() {
   const [lat, setLat] = useState(35.6518205);
   const [lon, setLon] = useState(139.5446124);
   const [pref, setPref] = useState('東京都');
   // const [indent, setIndent] = useState('13');
-  const [open, setOpen] = useState(false);open
-  const [openl, setOpenl] = useState(false);openl
-  const [opens, setOpens] = useState(false);opens
+  const [open, setOpen] = useState(false);
+  open;
+  const [openl, setOpenl] = useState(false);
+  openl;
+  const [opens, setOpens] = useState(false);
+  opens;
   const [viewWear, setViewWear] = useState(false);
   const [viewHot, setViewHot] = useState(false);
-  const [viewFeel, setViewFeel] = useState(false);
-  const [viewRay, setViewRay] = useState(false);
-  const [viewSleep, setviewSleep] = useState(false);
-  const [viewUmbrella, setviewUmbrella] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -328,7 +325,7 @@ export default function Index() {
     setOpenl(true);
   };
 
-   const handleClickOpens = () => {
+  const handleClickOpens = () => {
     setOpens(true);
   };
 
@@ -340,18 +337,13 @@ export default function Index() {
     setOpenl(false);
   };
 
-  const handleCloses= () => {
+  const handleCloses = () => {
     setOpens(false);
   };
 
-
-  const handleOk = (viewWear: boolean, viewHot: boolean, viewFeel: boolean, viewRay: boolean, viewSleep: boolean, viewUmbrella:boolean) => {
+  const handleOk = (viewWear: boolean, viewHot: boolean) => {
     setViewWear(viewWear);
     setViewHot(viewHot);
-    setViewFeel(viewFeel);
-    setViewRay(viewRay);
-    setviewSleep(viewSleep);
-    setviewUmbrella(viewUmbrella);
     setOpen(false);
   };
 
@@ -402,10 +394,6 @@ export default function Index() {
   if (!currentWeather) return null;
 
   return (
-
-    
-    
-
     <Layout home>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossOrigin="anonymous"/>
       <div className={utilStyles.header}>
@@ -449,18 +437,13 @@ export default function Index() {
         />
       </div>
 
-      <FormDialog
+      {/* <FormDialog
         open={open}
         handleClose={handleClose}
         handleOk={handleOk}
         viewWear={viewWear}
         viewHot={viewHot}
-        viewFeel={viewFeel}
-        viewRay={viewRay}
-        viewSleep={viewSleep}
-        viewUmbrella={viewUmbrella}
       />
-
       <div className={utilStyles.container2}>
       <div className= "card text-black bg-transparent w-50 h-50 border-info">
         <div className="card-footer text-light bg-info border-info">
@@ -569,7 +552,7 @@ export default function Index() {
 
           <div>
             <p><button className="btn btn-primary" onClick={handleClickOpenl}>ログイン</button></p>
-          </div>      
+          </div> 
         </div>
       </div>
       </div>

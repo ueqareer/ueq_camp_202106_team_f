@@ -17,13 +17,27 @@
   padding:20px 40px;
 }
 
-.headerList{
-  float:left;
-}
+ .headerList{
+  float: left;
+  padding: 25px;
+} 
 
 .headerList li{
   float:left;
-  padding:33px 20px;
+} 
+
+.footer{
+  background-color:#26d0c9;
+  color:#fff;
+  overflow: hidden;
+  height: 90px;
+  width: 300px;
+}
+
+.footerLogo{
+  float:left;
+  font-size:20px;
+  padding:20px 40px;
 }
 
 .placeForm{
@@ -57,8 +71,8 @@
 .weather {
   font-family: 'Open Sans Condensed', sans-serif;
   background: linear-gradient(to bottom right, #04BACC, #68d5e0);
-  width: 530px;
-  height: 490px;
+  width: 520px;
+  height: 472px;
   font-size: 21px;
   line-height: 1.5;
   color: #fff;
