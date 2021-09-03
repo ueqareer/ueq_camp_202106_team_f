@@ -151,8 +151,14 @@
 }
 
 .logButton{
-  
+  padding: auto;
   margin: 25px;
   float:right;
   display: flex;
+}
+
+.DeleteButton{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

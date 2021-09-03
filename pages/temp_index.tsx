@@ -4,7 +4,8 @@ import FormDialog from '@/components/Forms/FormDialog';
 import Layout from '@/components/Layout';
 import JapanMap from '@/components/JapanMap';
 import Weather from '@/components/Weather';
-
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import utilStyles from '@/styles/utils.module.css';
 
 import { useRouter } from 'next/router';
@@ -130,6 +131,7 @@ type RegisterdData = {
   spot: string;
   weather: string;
   schedule: Date;
+  id: string;
 };
 
 
@@ -421,6 +423,7 @@ export default function Index() {
             ...doc.data(),
             //date: doc.data().date.toDate(),
             schedule: doc.data().schedule.toDate(),
+            id:doc.id
           } as RegisterdData;
         });
         setDocNumber(data.length);
@@ -430,6 +433,16 @@ export default function Index() {
     }
     console.log("関数２終わり")
   };
+
+  const deleteData=(documentId:string)=> {
+    firestore
+    .collection('users')
+    .doc(currentUser?.uid)
+    .collection("notification_data").doc(documentId).delete();
+    console.log("削除関数が実行された");
+    console.log(documentId);
+    docNumber_func();
+  }
 
   const logIventDate = async(value_spot:string, value_schedule:string)=>{
     await sendInfo(value_spot, value_schedule)
@@ -594,11 +607,20 @@ export default function Index() {
         </div>
         <ul>
         { regiData?.map((value) => 
-        <li>{value.spot}        -{dayjs(value.schedule).format('YYYY/MM/DD')}</li>
+        <div className={utilStyles.DeleteButton}>
+          <div><li>{value.spot}        -{dayjs(value.schedule).format('YYYY/MM/DD')}</li></div>
+          <div>
+            <IconButton aria-label="Delete" onClick={()=>deleteData(value.id)} /*id={String(i)}*/>
+            <DeleteIcon />
+            </IconButton>
+          </div>
+        </div>
        )}
+       
       </ul>
       </div> 
       </div>
+
 
       
 
