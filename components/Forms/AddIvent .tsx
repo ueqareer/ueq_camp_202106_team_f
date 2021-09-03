@@ -17,7 +17,7 @@ type State = {
 type Props = {
   addOpen: boolean;
   handleClickClose: () => void;
-  sendInfo: (value_spot: string, value_schedule: string) => void;
+  logIventDate: (value_spot: string, value_schedule: string) => Promise<void>
 };
 
 const currencies = [
@@ -124,11 +124,8 @@ export default class AddIvent extends React.Component<Props, State> {
             キャンセル
           </Button>
           <Button
-            onClick={() => {
-              this.props.sendInfo(
-                this.state.eventPrefecture,
-                this.state.eventDate
-              );
+            onClick={ () => {
+              this.props.logIventDate( this.state.eventPrefecture, this.state.eventDate);
             }}
             color="primary"
             autoFocus

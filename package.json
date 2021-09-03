@@ -15,6 +15,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/system": "^4.12.1",
     "date-fns": "^2.23.0",
+    "dayjs": "^1.10.6",
     "firebase": "^8.9.1",
     "firebase-admin": "^9.11.1",
     "fs": "0.0.1-security",

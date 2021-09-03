@@ -152,8 +152,33 @@
   justify-content: space-around;
 }
 
+.container2 {
+  display: flex;
+  margin: 10px;
+  justify-content: space-around;
+}
+
 .pref{
   width: 20px;
   font-size: 20px;
   display: flex;
+}
+
+.buttom{
+  display: flex;
+  width: 20px;
+  height: 8px;
+}
+
+.logButton{
+  padding: auto;
+  margin: 25px;
+  float:right;
+  display: flex;
+}
+
+.DeleteButton{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
