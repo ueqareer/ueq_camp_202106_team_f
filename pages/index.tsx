@@ -188,12 +188,12 @@ const displayHotIcon = (tCurrent: Current)=>{
 
 const displayFeelIcon = (tCurrent: Current)=>{
   let feelnum = 0.81*tCurrent.temp+0.01*tCurrent.humidity*(0.99*tCurrent.temp-14.3)+46.3
-  if (feelnum<=60){
+  if (feelnum<=55){
     return {
       iconlabel: './feel/feel5.png',
     };
   }
-  if (feelnum<=70&&feelnum>60){
+  if (feelnum<=70&&feelnum>55){
     return {
       iconlabel: './feel/feel4.png',
     };
@@ -282,7 +282,7 @@ const displayUmbrellaIcon = (wDaily: Daily[])=>{
       iconlabel: './umbrella/umbrella5.png',
     };
   }
-  if (dailyPop>=60&&dailyPop<80){
+  if (dailyPop>=55&&dailyPop<80){
     return {
       iconlabel: './umbrella/umbrella4.png',
     };
@@ -460,13 +460,15 @@ export default function Index() {
         viewSleep={viewSleep}
         viewUmbrella={viewUmbrella}
       />
-      <div className= "card text-black bg-transparent w-70 border-info">
+
+      <div className={utilStyles.container2}>
+      <div className= "card text-black bg-transparent w-50 h-50 border-info">
         <div className="card-footer text-light bg-info border-info">
           指数表示
         </div>
   
         <div className="card-body">
-          <p className="card-text">指数を追加してねの紹介文募集中</p>
+          <p className="card-text">自分好みの指数を追加して、いい1日を過ごしましょう！</p>
 
           <button className="btn btn-primary" onClick={handleClickOpen}>指数追加</button>
         
@@ -478,8 +480,8 @@ export default function Index() {
                   <div>服装指数</div>
                   <img
                     src={displayWearIcon(x.temp)?.iconlabel}
-                    height={60}
-                    width={60}
+                    height={55}
+                    width={55}
                   />
                 </li>
               ))}
@@ -491,8 +493,8 @@ export default function Index() {
                   <div>体感温度指数</div>
                   <img
                     src={displayHotIcon(currentWeather)?.iconlabel}
-                    height={60}
-                    width={60}
+                    height={55}
+                    width={55}
                   />
             </div>
           )}
@@ -502,8 +504,8 @@ export default function Index() {
                   <div>不快度指数</div>
                   <img
                     src={displayFeelIcon(currentWeather)?.iconlabel}
-                    height={60}
-                    width={60}
+                    height={55}
+                    width={55}
                   />
             </div>
           )}
@@ -513,8 +515,8 @@ export default function Index() {
                   <div>紫外線指数</div>
                   <img
                     src={displayRayIcon(currentWeather)?.iconlabel}
-                    height={60}
-                    width={60}
+                    height={55}
+                    width={55}
                   />
             </div>
           )}
@@ -524,8 +526,8 @@ export default function Index() {
                   <div>睡眠指数</div>
                   <img
                     src={displaySleepIcon(dailyWeather[0])?.iconlabel}
-                    height={60}
-                    width={60}
+                    height={55}
+                    width={55}
                   />
             </div>
           )}
@@ -535,8 +537,8 @@ export default function Index() {
             <div>傘指数</div>
             <img
               src={displayUmbrellaIcon(dailyWeather)?.iconlabel}
-              height={60}
-              width={60}
+              height={55}
+              width={55}
             />
             </div>
           )}
@@ -545,13 +547,13 @@ export default function Index() {
       </div>
       </div>
 
-      <div className= "card text-white bg-info w-50">
+      <div className= "card text-black bg-transparent w-25 h-100 border-info">
       
-        <div className="card-footer">
-          追加機能が！！
+        <div className="card-footer text-light bg-info border-info">
+        会員登録
         </div>
         <div className="card-body">
-          <p className="card-text">新規登録してログインすることで予定の登録や様々な天気に関する情報を見ることができます</p>
+          <p className="card-text">ログインすることで、追加機能にアクセスできます。追加機能では、登録した予定日の天気予報をメールに通知します</p>
             <SignupForm
               opens={opens}
               handleCloses={handleCloses}
@@ -569,6 +571,7 @@ export default function Index() {
             <p><button className="btn btn-primary" onClick={handleClickOpenl}>ログイン</button></p>
           </div>      
         </div>
+      </div>
       </div>
       
 

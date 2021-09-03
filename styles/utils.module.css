@@ -138,6 +138,12 @@
   justify-content: space-around;
 }
 
+.container2 {
+  display: flex;
+  margin: 10px;
+  justify-content: space-around;
+}
+
 .pref{
   width: 20px;
   font-size: 20px;

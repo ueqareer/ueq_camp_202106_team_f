@@ -515,7 +515,7 @@ export default function Index() {
         viewSleep={viewSleep}
         viewUmbrella={viewUmbrella}
       />
-    <p className="card-text">指数を追加してねの紹介文募集中</p>
+    <p className="card-text">自分好みの指数を追加して、いい1日を過ごしましょう！</p>
       <div className={utilStyles.wear}>
         <button className="btn btn-primary" onClick={handleClickOpen}>指数を追加</button>
       </div>
@@ -593,7 +593,8 @@ export default function Index() {
 
       </div>
         <div>
-        <p className="card-text">日程を追加してねの紹介文募集中</p>
+        <p className="card-text">天気を通知してほしい予定に関する、日付と地点を登録してください。
+予定日の3日前からメールに天気を通知します。</p>
       <AddIvent
         addOpen={addOpen}
         handleClickClose={handleClickClose}
